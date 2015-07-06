@@ -52,6 +52,7 @@ namespace RadixCalculator
 			this.btnIncrement5 = new System.Windows.Forms.Button();
 			this.btnClear = new System.Windows.Forms.Button();
 			this.lblBaseArray = new System.Windows.Forms.Label();
+			this.cbRightToLeft = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -65,7 +66,7 @@ namespace RadixCalculator
 			// 
 			// btnIncrement
 			// 
-			this.btnIncrement.Location = new System.Drawing.Point(19, 35);
+			this.btnIncrement.Location = new System.Drawing.Point(19, 23);
 			this.btnIncrement.Name = "btnIncrement";
 			this.btnIncrement.Size = new System.Drawing.Size(33, 23);
 			this.btnIncrement.TabIndex = 1;
@@ -75,7 +76,7 @@ namespace RadixCalculator
 			// 
 			// btnIncrement10
 			// 
-			this.btnIncrement10.Location = new System.Drawing.Point(97, 35);
+			this.btnIncrement10.Location = new System.Drawing.Point(97, 23);
 			this.btnIncrement10.Name = "btnIncrement10";
 			this.btnIncrement10.Size = new System.Drawing.Size(33, 23);
 			this.btnIncrement10.TabIndex = 2;
@@ -85,7 +86,7 @@ namespace RadixCalculator
 			// 
 			// btnIncrement100
 			// 
-			this.btnIncrement100.Location = new System.Drawing.Point(136, 35);
+			this.btnIncrement100.Location = new System.Drawing.Point(136, 23);
 			this.btnIncrement100.Name = "btnIncrement100";
 			this.btnIncrement100.Size = new System.Drawing.Size(33, 23);
 			this.btnIncrement100.TabIndex = 3;
@@ -95,7 +96,7 @@ namespace RadixCalculator
 			// 
 			// btnAuto
 			// 
-			this.btnAuto.Location = new System.Drawing.Point(175, 35);
+			this.btnAuto.Location = new System.Drawing.Point(175, 23);
 			this.btnAuto.Name = "btnAuto";
 			this.btnAuto.Size = new System.Drawing.Size(95, 23);
 			this.btnAuto.TabIndex = 4;
@@ -117,16 +118,16 @@ namespace RadixCalculator
 			this.groupBox1.Controls.Add(this.btnAuto);
 			this.groupBox1.Controls.Add(this.btnIncrement10);
 			this.groupBox1.Controls.Add(this.btnIncrement100);
-			this.groupBox1.Location = new System.Drawing.Point(12, 55);
+			this.groupBox1.Location = new System.Drawing.Point(12, 74);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(281, 100);
+			this.groupBox1.Size = new System.Drawing.Size(281, 84);
 			this.groupBox1.TabIndex = 5;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Increase value:";
 			// 
 			// btnCustomAmmount
 			// 
-			this.btnCustomAmmount.Location = new System.Drawing.Point(136, 64);
+			this.btnCustomAmmount.Location = new System.Drawing.Point(136, 52);
 			this.btnCustomAmmount.Name = "btnCustomAmmount";
 			this.btnCustomAmmount.Size = new System.Drawing.Size(134, 23);
 			this.btnCustomAmmount.TabIndex = 7;
@@ -136,7 +137,7 @@ namespace RadixCalculator
 			// 
 			// tbIncrementAmmount
 			// 
-			this.tbIncrementAmmount.Location = new System.Drawing.Point(19, 64);
+			this.tbIncrementAmmount.Location = new System.Drawing.Point(19, 52);
 			this.tbIncrementAmmount.Name = "tbIncrementAmmount";
 			this.tbIncrementAmmount.Size = new System.Drawing.Size(111, 20);
 			this.tbIncrementAmmount.TabIndex = 6;
@@ -144,7 +145,7 @@ namespace RadixCalculator
 			// 
 			// btnIncrement5
 			// 
-			this.btnIncrement5.Location = new System.Drawing.Point(58, 35);
+			this.btnIncrement5.Location = new System.Drawing.Point(58, 23);
 			this.btnIncrement5.Name = "btnIncrement5";
 			this.btnIncrement5.Size = new System.Drawing.Size(33, 23);
 			this.btnIncrement5.TabIndex = 5;
@@ -161,6 +162,7 @@ namespace RadixCalculator
 			this.btnClear.TabIndex = 7;
 			this.btnClear.Text = "Clear";
 			this.btnClear.UseVisualStyleBackColor = true;
+			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
 			// 
 			// lblBaseArray
 			// 
@@ -171,18 +173,32 @@ namespace RadixCalculator
 			this.lblBaseArray.Text = "0:0:0:0";
 			this.lblBaseArray.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// cbRightToLeft
+			// 
+			this.cbRightToLeft.AutoSize = true;
+			this.cbRightToLeft.Checked = true;
+			this.cbRightToLeft.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbRightToLeft.Location = new System.Drawing.Point(211, 51);
+			this.cbRightToLeft.Name = "cbRightToLeft";
+			this.cbRightToLeft.Size = new System.Drawing.Size(82, 17);
+			this.cbRightToLeft.TabIndex = 9;
+			this.cbRightToLeft.Text = "RightToLeft";
+			this.cbRightToLeft.UseVisualStyleBackColor = true;
+			this.cbRightToLeft.CheckedChanged += new System.EventHandler(this.cbRightToLeft_CheckedChanged);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSize = true;
-			this.ClientSize = new System.Drawing.Size(305, 170);
+			this.ClientSize = new System.Drawing.Size(304, 170);
+			this.Controls.Add(this.cbRightToLeft);
 			this.Controls.Add(this.lblBaseArray);
 			this.Controls.Add(this.btnClear);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.tbOutput);
 			this.Name = "MainForm";
-			this.Text = "RadixCalculator";
+			this.Text = "Mixed Radix Calculator";
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
@@ -201,5 +217,6 @@ namespace RadixCalculator
 		private System.Windows.Forms.TextBox tbIncrementAmmount;
 		private System.Windows.Forms.Button btnClear;
 		private System.Windows.Forms.Label lblBaseArray;
+		private System.Windows.Forms.CheckBox cbRightToLeft;
 	}
 }

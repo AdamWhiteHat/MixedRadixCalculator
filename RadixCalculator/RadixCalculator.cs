@@ -20,11 +20,12 @@ using System.Text;
 namespace RadixCalculator
 {
 	public class RadixCalculator
-	{		
+	{
+		public bool RightToLeft { get; set; }
 		List<int> _baseArray { get; set; }
 		List<int> _valueArray { get; set; }
-		List<string> _nameArray { get; set; }
-		List<char> _symbolArray { get; set; }
+		//List<string> _nameArray { get; set; }
+		//List<char> _symbolArray { get; set; }
 		int index;
 
 		#region Constructors
@@ -39,7 +40,7 @@ namespace RadixCalculator
 			{
 				_valueArray.Add(0);
 			}
-		
+
 			Init();
 		}
 
@@ -51,7 +52,7 @@ namespace RadixCalculator
 
 		public void Init()
 		{
-			
+			RightToLeft = true;
 		}
 
 		public void Increment()
@@ -83,28 +84,42 @@ namespace RadixCalculator
 
 		public string GetValue()
 		{
-			StringBuilder result = new StringBuilder();
-
-			foreach (int i in _valueArray)
-			{
-				result.AppendFormat("{0}:", i.ToString());
-			}
-
-			return result.ToString();
+			return formatArrayString(_valueArray);
 		}
 
 		public override string ToString()
 		{
+			return formatArrayString(_baseArray);
+		}
+
+		private string formatArrayString(List<int> array)
+		{
 			StringBuilder result = new StringBuilder();
 
-			foreach (int i in _baseArray)
+			foreach (int i in array)
 			{
-				result.AppendFormat("{0}:", i.ToString());
+				if (RightToLeft)
+				{
+					result.Insert(0, string.Format("{0}:", i));
+				}
+				else
+				{
+					result.AppendFormat("{0}:", i);
+				}
 			}
+
+			// Remove trailing colon, ":"
+			result = result.Remove(result.Length - 1, 1);
 
 			return result.ToString();
 		}
-				
+
+
+		#region RadixCalculator static Factory
+
+		/// <summary>
+		/// Provides access to pre-defined RadixCalculator class instances
+		/// </summary>
 		public static class Factory
 		{
 			public static RadixCalculator TimeDateRadix1()
@@ -122,23 +137,26 @@ namespace RadixCalculator
 
 			public static RadixCalculator Base2()
 			{
-				return new RadixCalculator(2,8);
+				return new RadixCalculator(2, 8);
 			}
 
 			public static RadixCalculator Base10()
 			{
-				return new RadixCalculator(10,7);
+				return new RadixCalculator(10, 7);
 			}
 
 			public static RadixCalculator Base12()
-			{				
-				return new RadixCalculator(12,8);
+			{
+				return new RadixCalculator(12, 8);
 			}
 
 			public static RadixCalculator Base16()
 			{
-				return new RadixCalculator(16,8);
+				return new RadixCalculator(16, 8);
 			}
 		}
+
+		#endregion
+
 	}
 }

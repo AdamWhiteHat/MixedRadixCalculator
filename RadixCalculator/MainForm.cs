@@ -27,11 +27,13 @@ namespace RadixCalculator
 		{
 			InitializeComponent();
 			Initialize();
+			UpdateGUI();
 		}
 
 		void Initialize()
 		{
 			radixCalc = RadixCalculator.Factory.TimeDateRadix1();
+			radixCalc.RightToLeft = cbRightToLeft.Checked;
 		}
 			
 		void BtnIncrementClick(object sender, EventArgs e)
@@ -95,6 +97,16 @@ namespace RadixCalculator
 		{
 			tbOutput.Text = radixCalc.GetValue();
 			lblBaseArray.Text = radixCalc.ToString();
+		}
+
+		private void cbRightToLeft_CheckedChanged(object sender, EventArgs e)
+		{
+			radixCalc.RightToLeft = cbRightToLeft.Checked;
+		}
+
+		private void btnClear_Click(object sender, EventArgs e)
+		{
+			radixCalc = RadixCalculator.Factory.TimeDateRadix1();
 		}
 
 	}
