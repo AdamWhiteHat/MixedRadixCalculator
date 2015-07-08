@@ -53,20 +53,38 @@ namespace RadixCalculator
 			this.btnClear = new System.Windows.Forms.Button();
 			this.lblBaseArray = new System.Windows.Forms.Label();
 			this.cbRightToLeft = new System.Windows.Forms.CheckBox();
+			this.panelRadixUse = new System.Windows.Forms.Panel();
+			this.panelRadixChoose = new System.Windows.Forms.Panel();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.btnAbort = new System.Windows.Forms.Button();
+			this.lblCustomDisplay = new System.Windows.Forms.Label();
+			this.tbCustomDigit = new System.Windows.Forms.TextBox();
+			this.btnCustomSave = new System.Windows.Forms.Button();
+			this.btnCustomAdd = new System.Windows.Forms.Button();
+			this.label1 = new System.Windows.Forms.Label();
+			this.btnCreate = new System.Windows.Forms.Button();
+			this.btnLoad = new System.Windows.Forms.Button();
+			this.listNumberSystems = new System.Windows.Forms.ListBox();
+			this.labelHeaderRight = new System.Windows.Forms.Label();
+			this.labelHeaderLeft = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
+			this.panelRadixUse.SuspendLayout();
+			this.panelRadixChoose.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tbOutput
 			// 
-			this.tbOutput.Location = new System.Drawing.Point(12, 12);
+			this.tbOutput.BackColor = System.Drawing.SystemColors.Control;
+			this.tbOutput.Location = new System.Drawing.Point(9, 10);
 			this.tbOutput.Name = "tbOutput";
-			this.tbOutput.Size = new System.Drawing.Size(221, 20);
+			this.tbOutput.Size = new System.Drawing.Size(209, 20);
 			this.tbOutput.TabIndex = 0;
 			this.tbOutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// btnIncrement
 			// 
-			this.btnIncrement.Location = new System.Drawing.Point(19, 23);
+			this.btnIncrement.Location = new System.Drawing.Point(11, 23);
 			this.btnIncrement.Name = "btnIncrement";
 			this.btnIncrement.Size = new System.Drawing.Size(33, 23);
 			this.btnIncrement.TabIndex = 1;
@@ -76,7 +94,7 @@ namespace RadixCalculator
 			// 
 			// btnIncrement10
 			// 
-			this.btnIncrement10.Location = new System.Drawing.Point(97, 23);
+			this.btnIncrement10.Location = new System.Drawing.Point(89, 23);
 			this.btnIncrement10.Name = "btnIncrement10";
 			this.btnIncrement10.Size = new System.Drawing.Size(33, 23);
 			this.btnIncrement10.TabIndex = 2;
@@ -86,7 +104,7 @@ namespace RadixCalculator
 			// 
 			// btnIncrement100
 			// 
-			this.btnIncrement100.Location = new System.Drawing.Point(136, 23);
+			this.btnIncrement100.Location = new System.Drawing.Point(128, 23);
 			this.btnIncrement100.Name = "btnIncrement100";
 			this.btnIncrement100.Size = new System.Drawing.Size(33, 23);
 			this.btnIncrement100.TabIndex = 3;
@@ -96,7 +114,7 @@ namespace RadixCalculator
 			// 
 			// btnAuto
 			// 
-			this.btnAuto.Location = new System.Drawing.Point(175, 23);
+			this.btnAuto.Location = new System.Drawing.Point(167, 23);
 			this.btnAuto.Name = "btnAuto";
 			this.btnAuto.Size = new System.Drawing.Size(95, 23);
 			this.btnAuto.TabIndex = 4;
@@ -118,16 +136,16 @@ namespace RadixCalculator
 			this.groupBox1.Controls.Add(this.btnAuto);
 			this.groupBox1.Controls.Add(this.btnIncrement10);
 			this.groupBox1.Controls.Add(this.btnIncrement100);
-			this.groupBox1.Location = new System.Drawing.Point(12, 74);
+			this.groupBox1.Location = new System.Drawing.Point(6, 77);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(281, 84);
+			this.groupBox1.Size = new System.Drawing.Size(273, 84);
 			this.groupBox1.TabIndex = 5;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Increase value:";
 			// 
 			// btnCustomAmmount
 			// 
-			this.btnCustomAmmount.Location = new System.Drawing.Point(136, 52);
+			this.btnCustomAmmount.Location = new System.Drawing.Point(128, 52);
 			this.btnCustomAmmount.Name = "btnCustomAmmount";
 			this.btnCustomAmmount.Size = new System.Drawing.Size(134, 23);
 			this.btnCustomAmmount.TabIndex = 7;
@@ -137,7 +155,7 @@ namespace RadixCalculator
 			// 
 			// tbIncrementAmmount
 			// 
-			this.tbIncrementAmmount.Location = new System.Drawing.Point(19, 52);
+			this.tbIncrementAmmount.Location = new System.Drawing.Point(11, 52);
 			this.tbIncrementAmmount.Name = "tbIncrementAmmount";
 			this.tbIncrementAmmount.Size = new System.Drawing.Size(111, 20);
 			this.tbIncrementAmmount.TabIndex = 6;
@@ -145,7 +163,7 @@ namespace RadixCalculator
 			// 
 			// btnIncrement5
 			// 
-			this.btnIncrement5.Location = new System.Drawing.Point(58, 23);
+			this.btnIncrement5.Location = new System.Drawing.Point(50, 23);
 			this.btnIncrement5.Name = "btnIncrement5";
 			this.btnIncrement5.Size = new System.Drawing.Size(33, 23);
 			this.btnIncrement5.TabIndex = 5;
@@ -156,7 +174,7 @@ namespace RadixCalculator
 			// btnClear
 			// 
 			this.btnClear.AutoSize = true;
-			this.btnClear.Location = new System.Drawing.Point(239, 9);
+			this.btnClear.Location = new System.Drawing.Point(224, 7);
 			this.btnClear.Name = "btnClear";
 			this.btnClear.Size = new System.Drawing.Size(54, 23);
 			this.btnClear.TabIndex = 7;
@@ -166,9 +184,9 @@ namespace RadixCalculator
 			// 
 			// lblBaseArray
 			// 
-			this.lblBaseArray.Location = new System.Drawing.Point(12, 35);
+			this.lblBaseArray.Location = new System.Drawing.Point(9, 33);
 			this.lblBaseArray.Name = "lblBaseArray";
-			this.lblBaseArray.Size = new System.Drawing.Size(221, 13);
+			this.lblBaseArray.Size = new System.Drawing.Size(209, 13);
 			this.lblBaseArray.TabIndex = 8;
 			this.lblBaseArray.Text = "0:0:0:0";
 			this.lblBaseArray.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -178,31 +196,171 @@ namespace RadixCalculator
 			this.cbRightToLeft.AutoSize = true;
 			this.cbRightToLeft.Checked = true;
 			this.cbRightToLeft.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbRightToLeft.Location = new System.Drawing.Point(211, 51);
+			this.cbRightToLeft.Location = new System.Drawing.Point(31, 49);
 			this.cbRightToLeft.Name = "cbRightToLeft";
-			this.cbRightToLeft.Size = new System.Drawing.Size(82, 17);
+			this.cbRightToLeft.Size = new System.Drawing.Size(181, 17);
 			this.cbRightToLeft.TabIndex = 9;
-			this.cbRightToLeft.Text = "RightToLeft";
+			this.cbRightToLeft.Text = "Right align Most Signifigant Digit ";
 			this.cbRightToLeft.UseVisualStyleBackColor = true;
 			this.cbRightToLeft.CheckedChanged += new System.EventHandler(this.cbRightToLeft_CheckedChanged);
+			// 
+			// panelRadixUse
+			// 
+			this.panelRadixUse.Controls.Add(this.tbOutput);
+			this.panelRadixUse.Controls.Add(this.cbRightToLeft);
+			this.panelRadixUse.Controls.Add(this.groupBox1);
+			this.panelRadixUse.Controls.Add(this.lblBaseArray);
+			this.panelRadixUse.Controls.Add(this.btnClear);
+			this.panelRadixUse.Location = new System.Drawing.Point(309, 30);
+			this.panelRadixUse.Name = "panelRadixUse";
+			this.panelRadixUse.Size = new System.Drawing.Size(300, 167);
+			this.panelRadixUse.TabIndex = 10;
+			// 
+			// panelRadixChoose
+			// 
+			this.panelRadixChoose.Controls.Add(this.panel1);
+			this.panelRadixChoose.Controls.Add(this.label1);
+			this.panelRadixChoose.Controls.Add(this.btnCreate);
+			this.panelRadixChoose.Controls.Add(this.btnLoad);
+			this.panelRadixChoose.Controls.Add(this.listNumberSystems);
+			this.panelRadixChoose.Location = new System.Drawing.Point(4, 30);
+			this.panelRadixChoose.Name = "panelRadixChoose";
+			this.panelRadixChoose.Size = new System.Drawing.Size(300, 167);
+			this.panelRadixChoose.TabIndex = 11;
+			// 
+			// panel1
+			// 
+			this.panel1.Controls.Add(this.btnAbort);
+			this.panel1.Controls.Add(this.lblCustomDisplay);
+			this.panel1.Controls.Add(this.tbCustomDigit);
+			this.panel1.Controls.Add(this.btnCustomSave);
+			this.panel1.Controls.Add(this.btnCustomAdd);
+			this.panel1.Location = new System.Drawing.Point(131, 100);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(160, 52);
+			this.panel1.TabIndex = 12;
+			// 
+			// btnAbort
+			// 
+			this.btnAbort.Location = new System.Drawing.Point(114, 7);
+			this.btnAbort.Name = "btnAbort";
+			this.btnAbort.Size = new System.Drawing.Size(41, 23);
+			this.btnAbort.TabIndex = 11;
+			this.btnAbort.Text = "Abort";
+			this.btnAbort.UseVisualStyleBackColor = true;
+			this.btnAbort.Click += new System.EventHandler(this.btnAbort_Click);
+			// 
+			// lblCustomDisplay
+			// 
+			this.lblCustomDisplay.Location = new System.Drawing.Point(6, 33);
+			this.lblCustomDisplay.Name = "lblCustomDisplay";
+			this.lblCustomDisplay.Size = new System.Drawing.Size(149, 13);
+			this.lblCustomDisplay.TabIndex = 10;
+			this.lblCustomDisplay.Text = "0:0:0:0";
+			this.lblCustomDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// tbCustomDigit
+			// 
+			this.tbCustomDigit.Location = new System.Drawing.Point(6, 8);
+			this.tbCustomDigit.Name = "tbCustomDigit";
+			this.tbCustomDigit.Size = new System.Drawing.Size(38, 20);
+			this.tbCustomDigit.TabIndex = 4;
+			// 
+			// btnCustomSave
+			// 
+			this.btnCustomSave.Location = new System.Drawing.Point(71, 7);
+			this.btnCustomSave.Name = "btnCustomSave";
+			this.btnCustomSave.Size = new System.Drawing.Size(41, 23);
+			this.btnCustomSave.TabIndex = 6;
+			this.btnCustomSave.Text = "Save";
+			this.btnCustomSave.UseVisualStyleBackColor = true;
+			this.btnCustomSave.Click += new System.EventHandler(this.btnCustomSave_Click);
+			// 
+			// btnCustomAdd
+			// 
+			this.btnCustomAdd.Location = new System.Drawing.Point(46, 7);
+			this.btnCustomAdd.Name = "btnCustomAdd";
+			this.btnCustomAdd.Size = new System.Drawing.Size(23, 23);
+			this.btnCustomAdd.TabIndex = 5;
+			this.btnCustomAdd.Text = "+";
+			this.btnCustomAdd.UseVisualStyleBackColor = true;
+			this.btnCustomAdd.Click += new System.EventHandler(this.btnCustomAdd_Click);
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(131, 39);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(160, 13);
+			this.label1.TabIndex = 3;
+			this.label1.Text = "- or -";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// btnCreate
+			// 
+			this.btnCreate.Location = new System.Drawing.Point(131, 55);
+			this.btnCreate.Name = "btnCreate";
+			this.btnCreate.Size = new System.Drawing.Size(160, 23);
+			this.btnCreate.TabIndex = 2;
+			this.btnCreate.Text = "Create a new one";
+			this.btnCreate.UseVisualStyleBackColor = true;
+			this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
+			// 
+			// btnLoad
+			// 
+			this.btnLoad.Location = new System.Drawing.Point(131, 13);
+			this.btnLoad.Name = "btnLoad";
+			this.btnLoad.Size = new System.Drawing.Size(160, 23);
+			this.btnLoad.TabIndex = 1;
+			this.btnLoad.Text = "Load numbering system";
+			this.btnLoad.UseVisualStyleBackColor = true;
+			this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+			// 
+			// listNumberSystems
+			// 
+			this.listNumberSystems.FormattingEnabled = true;
+			this.listNumberSystems.Location = new System.Drawing.Point(5, 13);
+			this.listNumberSystems.Name = "listNumberSystems";
+			this.listNumberSystems.Size = new System.Drawing.Size(120, 147);
+			this.listNumberSystems.TabIndex = 0;
+			// 
+			// labelHeaderRight
+			// 
+			this.labelHeaderRight.Location = new System.Drawing.Point(309, 14);
+			this.labelHeaderRight.Name = "labelHeaderRight";
+			this.labelHeaderRight.Size = new System.Drawing.Size(300, 13);
+			this.labelHeaderRight.TabIndex = 12;
+			this.labelHeaderRight.Text = "Use your mixed radix number system";
+			this.labelHeaderRight.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			// 
+			// labelHeaderLeft
+			// 
+			this.labelHeaderLeft.Location = new System.Drawing.Point(4, 14);
+			this.labelHeaderLeft.Name = "labelHeaderLeft";
+			this.labelHeaderLeft.Size = new System.Drawing.Size(300, 13);
+			this.labelHeaderLeft.TabIndex = 13;
+			this.labelHeaderLeft.Text = "Choose/Create a mixed radix number system";
+			this.labelHeaderLeft.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSize = true;
-			this.ClientSize = new System.Drawing.Size(304, 170);
-			this.Controls.Add(this.cbRightToLeft);
-			this.Controls.Add(this.lblBaseArray);
-			this.Controls.Add(this.btnClear);
-			this.Controls.Add(this.groupBox1);
-			this.Controls.Add(this.tbOutput);
+			this.ClientSize = new System.Drawing.Size(613, 201);
+			this.Controls.Add(this.labelHeaderLeft);
+			this.Controls.Add(this.labelHeaderRight);
+			this.Controls.Add(this.panelRadixChoose);
+			this.Controls.Add(this.panelRadixUse);
 			this.Name = "MainForm";
-			this.Text = "Mixed Radix Calculator";
+			this.Text = "Mixed Radix Numbering System Creater & Calculator";
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			this.panelRadixUse.ResumeLayout(false);
+			this.panelRadixUse.PerformLayout();
+			this.panelRadixChoose.ResumeLayout(false);
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 		private System.Windows.Forms.Timer timer1;
@@ -218,5 +376,19 @@ namespace RadixCalculator
 		private System.Windows.Forms.Button btnClear;
 		private System.Windows.Forms.Label lblBaseArray;
 		private System.Windows.Forms.CheckBox cbRightToLeft;
+		private System.Windows.Forms.Panel panelRadixUse;
+		private System.Windows.Forms.Panel panelRadixChoose;
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Label lblCustomDisplay;
+		private System.Windows.Forms.TextBox tbCustomDigit;
+		private System.Windows.Forms.Button btnCustomSave;
+		private System.Windows.Forms.Button btnCustomAdd;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Button btnCreate;
+		private System.Windows.Forms.Button btnLoad;
+		private System.Windows.Forms.ListBox listNumberSystems;
+		private System.Windows.Forms.Button btnAbort;
+		private System.Windows.Forms.Label labelHeaderRight;
+		private System.Windows.Forms.Label labelHeaderLeft;
 	}
 }

@@ -45,3 +45,6 @@ RadixCalculator/obj/x86/Debug/RadixCalculator.csproj.FileListAbsolute.txt
 *.suo
 RadixCalculator/obj/x86/Debug/RadixCalculator.csproj.GenerateResource.Cache
 *.pdb
+RadixCalculator/obj/x86/Debug/RadixCalculator.exe
+*.Cache
+*.FileListAbsolute.txt
