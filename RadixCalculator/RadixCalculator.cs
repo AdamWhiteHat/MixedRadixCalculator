@@ -21,26 +21,21 @@ namespace RadixCalculator
 {
 	public class RadixCalculator
 	{
-		public bool RightToLeft { get; set; }
-		List<int> _baseArray { get; set; }
-		List<int> _valueArray { get; set; }
-		//List<string> _nameArray { get; set; }
-		//List<char> _symbolArray { get; set; }
+		public List<int> BaseRadices { get; set; }
+		public List<int> RadixValue { get; set; }
+		public long DecimalValue { get; set; }
+
+		public bool LeftToRight { get; set; }
+		//List<string> nameArray { get; set; }
+		//List<char> symbolArray { get; set; }
 		int index;
 
 		#region Constructors
 
 		public RadixCalculator(List<int> Definitions)
 		{
-			_baseArray = Definitions;
-			_valueArray = new List<int>();
-
-			int counter = Definitions.Count;
-			while (counter-- > 0)
-			{
-				_valueArray.Add(0);
-			}
-
+			BaseRadices = Definitions;
+			
 			Init();
 		}
 
@@ -51,20 +46,39 @@ namespace RadixCalculator
 		#endregion
 
 		public void Init()
+		{			
+			LeftToRight = false;
+			Zero();
+		}
+
+		public void Zero()
 		{
-			RightToLeft = true;
+			index = 0;
+			DecimalValue = 0;
+
+			RadixValue = new List<int>();
+			int counter = BaseRadices.Count;
+			while (counter-- > 0)
+			{
+				RadixValue.Add(0);
+			}
 		}
 
 		public void Increment()
 		{
-			if (_valueArray[index] >= _baseArray[index] - 1)
+			if (RadixValue[index] >= BaseRadices[index] - 1)
 			{
-				_valueArray[index++] = 0;
+				if ((BaseRadices.Count() - 1) > (index + 1))
+				{
+					throw new OverflowException("Current value exceeded what can be expressed with the current mixed radix number system.");
+				}
+				RadixValue[index++] = 0;
 				Increment();
 			}
 			else
 			{
-				_valueArray[index]++;
+				DecimalValue++;
+				RadixValue[index]++;
 				index = 0;
 			}
 		}
@@ -79,17 +93,17 @@ namespace RadixCalculator
 
 		public List<int> GetValueArray()
 		{
-			return _valueArray;
+			return RadixValue;
 		}
 
 		public string GetValue()
 		{
-			return formatArrayString(_valueArray);
+			return formatArrayString(RadixValue);
 		}
 
 		public override string ToString()
 		{
-			return formatArrayString(_baseArray);
+			return formatArrayString(BaseRadices);
 		}
 
 		private string formatArrayString(List<int> array)
@@ -98,14 +112,14 @@ namespace RadixCalculator
 
 			foreach (int i in array)
 			{
-				if (RightToLeft)
-				{
-					result.Insert(0, string.Format("{0}:", i));
-				}
-				else
+				if (LeftToRight)
 				{
 					result.AppendFormat("{0}:", i);
 				}
+				else
+				{
+					result.Insert(0, string.Format("{0}:", i));
+				}				
 			}
 
 			// Remove trailing colon, ":"
