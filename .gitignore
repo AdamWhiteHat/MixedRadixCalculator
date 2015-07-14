@@ -41,10 +41,15 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-RadixCalculator/obj/x86/Debug/RadixCalculator.csproj.FileListAbsolute.txt
+*.FileListAbsolute.txt
 *.suo
-RadixCalculator/obj/x86/Debug/RadixCalculator.csproj.GenerateResource.Cache
+*.GenerateResource.Cache
 *.pdb
 RadixCalculator/obj/x86/Debug/RadixCalculator.exe
-*.Cache
+#*.Cache
 *.FileListAbsolute.txt
+*.exe
+*.manifest
+*.resources
+*.config
+*.cache
