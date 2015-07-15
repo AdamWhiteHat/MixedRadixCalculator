@@ -23,7 +23,7 @@ namespace RadixCalculator
 	/// </summary>
 	public partial class MainForm : Form
 	{
-		RadixCalculator radixCalc;
+		MixedRadixSystem radixCalc;
 
 
 		public MainForm()
@@ -35,7 +35,7 @@ namespace RadixCalculator
 
 		void Initialize()
 		{
-			radixCalc = RadixCalculator.Factory.TimeDateRadix1();
+			radixCalc = MixedRadixSystem.Factory.TimeDateRadix1();
 			radixCalc.LeftToRight = cbLeftToRight.Checked;
 			panelCustom.Visible = false;
 
@@ -67,19 +67,19 @@ namespace RadixCalculator
 
 		private void btnIncrement5_Click(object sender, EventArgs e)
 		{
-			radixCalc.Increment(5);
+			radixCalc.AddDecimalValue(5);
 			UpdateGUI();
 		}
 		
 		void BtnIncrement10Click(object sender, EventArgs e)
 		{
-			radixCalc.Increment(10);
+			radixCalc.AddDecimalValue(10);
 			UpdateGUI();
 		}
 		
 		void BtnIncrement100Click(object sender, EventArgs e)
 		{
-			radixCalc.Increment(100);
+			radixCalc.AddDecimalValue(100);
 			UpdateGUI();
 		}
 		
@@ -88,7 +88,7 @@ namespace RadixCalculator
 			int customAmnt = 0;
 			if (int.TryParse(tbIncrementAmmount.Text, out customAmnt))
 			{
-				radixCalc.Increment(customAmnt);
+				radixCalc.AddDecimalValue(customAmnt);
 				UpdateGUI();
 			}
 		}
@@ -151,7 +151,7 @@ namespace RadixCalculator
 				selectedNumberSystem = selectedNumberSystem.Replace("Base ", "");
 				int baseNumber = int.Parse(selectedNumberSystem);
 
-				radixCalc = new RadixCalculator(baseNumber, 8);
+				radixCalc = new MixedRadixSystem(baseNumber, 8);
 
 			}
 			else if (selectedNumberSystem.Contains(":"))
@@ -159,7 +159,7 @@ namespace RadixCalculator
 				List<string> baseArray = new List<string>(selectedNumberSystem.Split(new char[] { ':' }));
 				List<int> baseDefinition = baseArray.Select(s => int.Parse(s)).ToList();
 
-				radixCalc = new RadixCalculator(baseDefinition);
+				radixCalc = new MixedRadixSystem(baseDefinition);
 			}
 
 			UpdateGUI();

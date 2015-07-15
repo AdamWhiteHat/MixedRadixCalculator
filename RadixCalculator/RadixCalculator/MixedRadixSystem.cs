@@ -19,7 +19,7 @@ using System.Text;
 
 namespace RadixCalculator
 {
-	public class RadixCalculator
+	public class MixedRadixSystem
 	{
 		public List<int> BaseRadices { get; set; }
 		public List<int> RadixValue { get; set; }
@@ -32,20 +32,20 @@ namespace RadixCalculator
 
 		#region Constructors
 
-		public RadixCalculator(List<int> Definitions)
+		public MixedRadixSystem(List<int> Definitions)
 		{
 			BaseRadices = Definitions;
 			
 			Init();
 		}
 
-		public RadixCalculator(int Base, int Precision)
+		public MixedRadixSystem(int Base, int Precision)
 			: this(Enumerable.Repeat<int>(Base, Precision).ToList())
 		{ }
 
 		#endregion
 
-		public void Init()
+		private void Init()
 		{			
 			LeftToRight = false;
 			Zero();
@@ -83,7 +83,7 @@ namespace RadixCalculator
 			}
 		}
 
-		public void Increment(int Value)
+		public void AddDecimalValue(int Value)
 		{
 			while (Value-- > 0)
 			{
@@ -136,7 +136,7 @@ namespace RadixCalculator
 		/// </summary>
 		public static class Factory
 		{
-			public static RadixCalculator TimeDateRadix1()
+			public static MixedRadixSystem TimeDateRadix1()
 			{
 				List<int> SortableDate = new List<int>();
 
@@ -146,27 +146,27 @@ namespace RadixCalculator
 				SortableDate.Add(7);  // Days a week
 				SortableDate.Add(52); // Weeks a year
 
-				return new RadixCalculator(SortableDate);
+				return new MixedRadixSystem(SortableDate);
 			}
 
-			public static RadixCalculator Base2()
+			public static MixedRadixSystem Base2()
 			{
-				return new RadixCalculator(2, 8);
+				return new MixedRadixSystem(2, 8);
 			}
 
-			public static RadixCalculator Base10()
+			public static MixedRadixSystem Base10()
 			{
-				return new RadixCalculator(10, 7);
+				return new MixedRadixSystem(10, 7);
 			}
 
-			public static RadixCalculator Base12()
+			public static MixedRadixSystem Base12()
 			{
-				return new RadixCalculator(12, 8);
+				return new MixedRadixSystem(12, 8);
 			}
 
-			public static RadixCalculator Base16()
+			public static MixedRadixSystem Base16()
 			{
-				return new RadixCalculator(16, 8);
+				return new MixedRadixSystem(16, 8);
 			}
 		}
 
