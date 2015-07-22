@@ -77,11 +77,12 @@ namespace RadixCalculator
 			// tbRadixValue
 			// 
 			this.tbRadixValue.BackColor = System.Drawing.SystemColors.Control;
-			this.tbRadixValue.Location = new System.Drawing.Point(9, 37);
+			this.tbRadixValue.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tbRadixValue.Location = new System.Drawing.Point(17, 38);
 			this.tbRadixValue.Name = "tbRadixValue";
-			this.tbRadixValue.Size = new System.Drawing.Size(549, 20);
+			this.tbRadixValue.Size = new System.Drawing.Size(540, 21);
 			this.tbRadixValue.TabIndex = 0;
-			this.tbRadixValue.Text = "0:0:0:0";
+			this.tbRadixValue.Text = "0 : 0 : 0 : 0 ";
 			this.tbRadixValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// btnIncrement
@@ -176,7 +177,7 @@ namespace RadixCalculator
 			// btnClear
 			// 
 			this.btnClear.AutoSize = true;
-			this.btnClear.Location = new System.Drawing.Point(483, 13);
+			this.btnClear.Location = new System.Drawing.Point(483, 8);
 			this.btnClear.Name = "btnClear";
 			this.btnClear.Size = new System.Drawing.Size(75, 23);
 			this.btnClear.TabIndex = 7;
@@ -186,17 +187,18 @@ namespace RadixCalculator
 			// 
 			// lblCurrentRadixSystem
 			// 
-			this.lblCurrentRadixSystem.Location = new System.Drawing.Point(9, 60);
+			this.lblCurrentRadixSystem.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold);
+			this.lblCurrentRadixSystem.Location = new System.Drawing.Point(17, 61);
 			this.lblCurrentRadixSystem.Name = "lblCurrentRadixSystem";
-			this.lblCurrentRadixSystem.Size = new System.Drawing.Size(549, 13);
+			this.lblCurrentRadixSystem.Size = new System.Drawing.Size(542, 16);
 			this.lblCurrentRadixSystem.TabIndex = 8;
-			this.lblCurrentRadixSystem.Text = "0:0:0:0";
+			this.lblCurrentRadixSystem.Text = "[0] [0] [0] [0]";
 			this.lblCurrentRadixSystem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// cbLeftToRight
 			// 
 			this.cbLeftToRight.AutoSize = true;
-			this.cbLeftToRight.Location = new System.Drawing.Point(256, 17);
+			this.cbLeftToRight.Location = new System.Drawing.Point(256, 12);
 			this.cbLeftToRight.Name = "cbLeftToRight";
 			this.cbLeftToRight.Size = new System.Drawing.Size(215, 17);
 			this.cbLeftToRight.TabIndex = 9;
@@ -220,9 +222,10 @@ namespace RadixCalculator
 			// 
 			// lblDecimalValue
 			// 
-			this.lblDecimalValue.Location = new System.Drawing.Point(12, 76);
+			this.lblDecimalValue.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold);
+			this.lblDecimalValue.Location = new System.Drawing.Point(17, 85);
 			this.lblDecimalValue.Name = "lblDecimalValue";
-			this.lblDecimalValue.Size = new System.Drawing.Size(546, 13);
+			this.lblDecimalValue.Size = new System.Drawing.Size(536, 16);
 			this.lblDecimalValue.TabIndex = 13;
 			this.lblDecimalValue.Text = "0";
 			this.lblDecimalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -281,9 +284,10 @@ namespace RadixCalculator
 			// 
 			// lblCustomDisplay
 			// 
+			this.lblCustomDisplay.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold);
 			this.lblCustomDisplay.Location = new System.Drawing.Point(3, 10);
 			this.lblCustomDisplay.Name = "lblCustomDisplay";
-			this.lblCustomDisplay.Size = new System.Drawing.Size(337, 13);
+			this.lblCustomDisplay.Size = new System.Drawing.Size(258, 16);
 			this.lblCustomDisplay.TabIndex = 10;
 			this.lblCustomDisplay.Text = "0:0:0:0";
 			this.lblCustomDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -317,7 +321,7 @@ namespace RadixCalculator
 			// 
 			// label1
 			// 
-			this.label1.Location = new System.Drawing.Point(398, 48);
+			this.label1.Location = new System.Drawing.Point(220, 48);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(160, 13);
 			this.label1.TabIndex = 3;
@@ -326,7 +330,7 @@ namespace RadixCalculator
 			// 
 			// btnCreate
 			// 
-			this.btnCreate.Location = new System.Drawing.Point(398, 62);
+			this.btnCreate.Location = new System.Drawing.Point(220, 64);
 			this.btnCreate.Name = "btnCreate";
 			this.btnCreate.Size = new System.Drawing.Size(160, 23);
 			this.btnCreate.TabIndex = 2;
@@ -336,7 +340,7 @@ namespace RadixCalculator
 			// 
 			// btnLoad
 			// 
-			this.btnLoad.Location = new System.Drawing.Point(398, 24);
+			this.btnLoad.Location = new System.Drawing.Point(220, 23);
 			this.btnLoad.Name = "btnLoad";
 			this.btnLoad.Size = new System.Drawing.Size(160, 23);
 			this.btnLoad.TabIndex = 1;

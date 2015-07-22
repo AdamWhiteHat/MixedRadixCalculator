@@ -45,10 +45,17 @@ namespace RadixCalculator
 			listNumberSystems.Items.Add("Base 10");
 			listNumberSystems.Items.Add("Base 12");
 			listNumberSystems.Items.Add("Base 16");
-			listNumberSystems.Items.Add("60:60:24:7:52");
-			listNumberSystems.Items.Add("3:5:7:11:13:17:19:23:29:");
+			listNumberSystems.Items.Add("60:60:24:7:4:12");
+			listNumberSystems.Items.Add("60:60:24:360");
+			listNumberSystems.Items.Add("60:60:24:6:60");
+			listNumberSystems.Items.Add("3:5:7:11:13:17:19:23:29");
+			listNumberSystems.Items.Add("2:3:5:8:13:21:34:55:89:144:233");
 			listNumberSystems.Items.Add("1:2:3:4:5:6:7:8:9");
-			
+			listNumberSystems.Items.Add("3:3:3:3:3:3:3:3:3:3:3:3");
+			listNumberSystems.Items.Add("5:5:5:5:5:5:5:5:5:5:5:5");
+			listNumberSystems.Items.Add("7:7:7:7:7:7:7:7:7:7:7:7");
+
+
 			panelRadixChoose.BringToFront();			
 		}
 
@@ -146,38 +153,24 @@ namespace RadixCalculator
 		{
 			string selectedNumberSystem = Convert.ToString(listNumberSystems.SelectedItem);
 
-			if (selectedNumberSystem.Contains("Base "))
-			{
-				selectedNumberSystem = selectedNumberSystem.Replace("Base ", "");
-				int baseNumber = int.Parse(selectedNumberSystem);
-
-				radixCalc = new MixedRadixSystem(baseNumber, 8);
-
-			}
-			else if (selectedNumberSystem.Contains(":"))
-			{
-				List<string> baseArray = new List<string>(selectedNumberSystem.Split(new char[] { ':' }));
-				List<int> baseDefinition = baseArray.Select(s => int.Parse(s)).ToList();
-
-				radixCalc = new MixedRadixSystem(baseDefinition);
-			}
+			radixCalc = new MixedRadixSystem(selectedNumberSystem, cbLeftToRight.Checked);			
 
 			UpdateGUI();
 		}
 
-		List<int> customRadixSystem = new List<int>();
+		List<long> customRadixSystem = new List<long>();
 		
 		private void btnCustomAdd_Click(object sender, EventArgs e)
 		{
-			int digit = 0;
-			if (int.TryParse(tbCustomDigit.Text, out digit))
+			long digit = 0;
+			if (long.TryParse(tbCustomDigit.Text, out digit))
 			{
 				customRadixSystem.Add(digit);
 				tbCustomDigit.Text = string.Empty;
 
 				if (lblCustomDisplay.Text.Length > 0)
 				{
-					lblCustomDisplay.Text += ":";
+					lblCustomDisplay.Text += MixedRadixSystem.BaseStringSeparator;
 				}
 
 				lblCustomDisplay.Text += digit.ToString();
@@ -186,31 +179,34 @@ namespace RadixCalculator
 
 		private void btnCreate_Click(object sender, EventArgs e)
 		{
-			panelCustom.Visible = true;
 			clearCustom();
+			panelCustom.Visible = true;			
 		}
 
 		private void btnCustomSave_Click(object sender, EventArgs e)
 		{
-			if (tbCustomDigit.Text.Contains(':'))
+			if (tbCustomDigit.Text.Contains(":"))
 			{
 				listNumberSystems.Items.Add(tbCustomDigit.Text);
-				return;
 			}
-			listNumberSystems.Items.Add(string.Join(":", customRadixSystem));
+			else
+			{
+				listNumberSystems.Items.Add(string.Join(MixedRadixSystem.BaseStringSeparator, customRadixSystem));
+				customRadixSystem = new List<long>();
+			}
 			panelCustom.Visible = false;
-			clearCustom();
+			//clearCustom();
 		}
 
 		private void btnAbort_Click(object sender, EventArgs e)
 		{
 			panelCustom.Visible = false;
-			clearCustom();
+			//clearCustom();
 		}
 
 		private void clearCustom()
 		{
-			customRadixSystem = new List<int>();
+			customRadixSystem = new List<long>();
 			tbCustomDigit.Text = string.Empty;
 			lblCustomDisplay.Text = string.Empty;
 			UpdateGUI();

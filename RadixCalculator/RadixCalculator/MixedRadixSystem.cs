@@ -19,158 +19,198 @@ using System.Text;
 
 namespace RadixCalculator
 {
-	public class MixedRadixSystem
+	public partial class MixedRadixSystem
 	{
-		public List<int> BaseRadices { get; set; }
-		public List<int> RadixValue { get; set; }
-		public long DecimalValue { get; set; }
+		public List<RadixNumeral> Digits { get; private set; }
+		public List<long> RadixValue { get { return Digits.Select(d => d.Value).ToList(); } }
 
 		public bool LeftToRight { get; set; }
-		//List<string> nameArray { get; set; }
-		//List<char> symbolArray { get; set; }
-		int index;
+		public readonly List<long> BaseRadices;
 
+		public long DecimalValue
+		{
+			get
+			{
+				checked
+				{
+					long result = 0;
+					foreach (RadixNumeral radix in Digits)
+					{
+						result += (radix.Base * radix.Value);
+					}
+					return result;
+				}
+			}
+			set
+			{
+				if (value > 0)
+				{
+					this.Zero();
+					this.AddDecimalValue(value);
+				}
+			}
+		}
+		
 		#region Constructors
 
-		public MixedRadixSystem(List<int> Definitions)
+		public static string BaseStringSeparator = " : ";
+		public MixedRadixSystem(string NumberSystemString, bool LeftToRight)
 		{
-			BaseRadices = Definitions;
-			
-			Init();
+			if (string.IsNullOrWhiteSpace(NumberSystemString))
+			{
+				throw new ArgumentNullException("NumberSystemString", "Argument NumberSystemString cannot be null or empty.");
+			}
+
+			string selectedNumberSystem = NumberSystemString;			
+			if (selectedNumberSystem.Contains("Base "))
+			{
+				selectedNumberSystem = selectedNumberSystem.Replace("Base ", "");
+
+				long baseNumber = 0;
+				if (long.TryParse(selectedNumberSystem, out baseNumber))
+				{
+					Digits = ConvertLongListToRadixNumeralList(Enumerable.Repeat(baseNumber, 10).ToList());
+				}
+				else
+				{
+					throw new Exception(string.Format("Cannot parse base \"{0}\".", selectedNumberSystem));
+				}				
+			}
+			else if (selectedNumberSystem.Contains(BaseStringSeparator))
+			{
+				List<string> baseArray = new List<string>(selectedNumberSystem.Split(new string[] { BaseStringSeparator }, StringSplitOptions.RemoveEmptyEntries));
+				List<long> baseDefinition = baseArray.Select(s => long.Parse(s)).ToList();
+				BaseRadices = baseDefinition;
+				Digits = ConvertLongListToRadixNumeralList(baseDefinition);				
+			}
+
+			if (Digits.Count < 1)
+			{
+				throw new Exception(string.Format("Failed to construct object; NumberSystemString should contain the numbering system's bases, separated by \"{0}\".", BaseStringSeparator));
+			}
+
+			BaseRadices = Digits.Select(d => d.Base).ToList();
+			Zero();
+		}
+
+		public MixedRadixSystem(List<long> NumberSystemDefinition, bool LeftToRight = false)
+		{
+			Digits = ConvertLongListToRadixNumeralList(NumberSystemDefinition);
+
+			if (Digits.Count > 0)
+			{
+				this.LeftToRight = LeftToRight;
+				BaseRadices = Digits.Select(d => d.Base).ToList();
+				Zero();
+			}
+		}
+
+		private List<RadixNumeral> ConvertLongListToRadixNumeralList(List<long> NumberSystemDefinition)
+		{
+			if (NumberSystemDefinition == null)
+			{
+				throw new ArgumentNullException("NumberSystemDefinition");
+			}
+			if (NumberSystemDefinition.Count < 1)
+			{
+				throw new ArgumentException("List cannot be empty.", "NumberSystemDefinition");
+			}
+
+			NumberSystemDefinition.Add(-1);
+
+			RadixNumeral rLast = RadixNumeral.Empty;
+			List<RadixNumeral> result = new List<RadixNumeral>();
+			foreach (long radixBase in NumberSystemDefinition)
+			{
+				RadixNumeral radNew = RadixNumeral.Empty;
+
+				if (radixBase != -1)
+				{
+					radNew = new RadixNumeral(radixBase);
+
+					if (rLast == RadixNumeral.Empty)
+					{
+						radNew.Previous = RadixNumeral.Empty;
+					}
+					else
+					{
+						rLast.Next = radNew;
+						radNew.Previous = rLast;
+
+						result.Add(rLast);
+					}
+
+					rLast = radNew;
+				}
+				else
+				{
+					rLast.Next = RadixNumeral.Empty;
+					result.Add(rLast);
+					break;
+				}
+			}
+
+			if (result.Count > 0)
+			{
+				return result;
+			}
+			else
+			{
+				throw new Exception("result.Count < 1");
+			}
 		}
 
 		public MixedRadixSystem(int Base, int Precision)
-			: this(Enumerable.Repeat<int>(Base, Precision).ToList())
+			: this(Enumerable.Repeat<long>(Base, Precision).ToList())
 		{ }
 
 		#endregion
 
-		private void Init()
-		{			
-			LeftToRight = false;
-			Zero();
-		}
-
 		public void Zero()
 		{
-			index = 0;
-			DecimalValue = 0;
-
-			RadixValue = new List<int>();
-			int counter = BaseRadices.Count;
-			while (counter-- > 0)
+			foreach (RadixNumeral digit in Digits)
 			{
-				RadixValue.Add(0);
+				digit.Zero();
 			}
 		}
 
 		public void Increment()
 		{
-			if (RadixValue[index] >= BaseRadices[index] - 1)
-			{
-				if ((BaseRadices.Count() - 1) > (index + 1))
-				{
-					throw new OverflowException("Current value exceeded what can be expressed with the current mixed radix number system.");
-				}
-				RadixValue[index++] = 0;
-				Increment();
-			}
-			else
-			{
-				DecimalValue++;
-				RadixValue[index]++;
-				index = 0;
-			}
+			Digits[0].Increment();
+			//if (Digits[index].RadixValue >= BaseRadices[index] - 1) { if ((BaseRadices.Count() - 1) > (index + 1))
+			//	{ throw new OverflowException("Current value exceeded what can be expressed with the current mixed radix number system."); }
+			//	Digits[index++].Zero(); Increment(); } else { DecimalValue++; Digits[index].Increment(); index = 0; }
 		}
 
-		public void AddDecimalValue(int Value)
+		public void AddDecimalValue(long Value)
 		{
-			while (Value-- > 0)
-			{
-				Increment();
-			}
-		}
-
-		public List<int> GetValueArray()
-		{
-			return RadixValue;
+			Digits[0].AddDecimalValue(Value);
+			//while (Value-- > 0) { Increment(); }
 		}
 
 		public string GetValue()
 		{
-			return formatArrayString(RadixValue);
+			int counter = 0;
+			List<string> paddedArray = RadixValue.Select(b => b.ToString().PadLeft(BaseRadices[counter++].ToString().Length)).ToList();
+			return formatArrayString(paddedArray);
 		}
 
 		public override string ToString()
 		{
-			return formatArrayString(BaseRadices);
+			return string.Join(" ", Digits.Select(d => d.ToString()));
+			//return formatArrayString(BaseRadices);
 		}
 
-		private string formatArrayString(List<int> array)
+		private string formatArrayString<T>(IEnumerable<T> array)
 		{
-			StringBuilder result = new StringBuilder();
-
-			foreach (int i in array)
+			if (!LeftToRight)
 			{
-				if (LeftToRight)
-				{
-					result.AppendFormat("{0}:", i);
-				}
-				else
-				{
-					result.Insert(0, string.Format("{0}:", i));
-				}				
+				return string.Join(BaseStringSeparator, array.Reverse());
 			}
-
-			// Remove trailing colon, ":"
-			result = result.Remove(result.Length - 1, 1);
-
-			return result.ToString();
-		}
-
-
-		#region RadixCalculator static Factory
-
-		/// <summary>
-		/// Provides access to pre-defined RadixCalculator class instances
-		/// </summary>
-		public static class Factory
-		{
-			public static MixedRadixSystem TimeDateRadix1()
+			else
 			{
-				List<int> SortableDate = new List<int>();
-
-				SortableDate.Add(60); // Seconds in minute
-				SortableDate.Add(60); // Minutes in hour
-				SortableDate.Add(24); // Hours in day
-				SortableDate.Add(7);  // Days a week
-				SortableDate.Add(52); // Weeks a year
-
-				return new MixedRadixSystem(SortableDate);
-			}
-
-			public static MixedRadixSystem Base2()
-			{
-				return new MixedRadixSystem(2, 8);
-			}
-
-			public static MixedRadixSystem Base10()
-			{
-				return new MixedRadixSystem(10, 7);
-			}
-
-			public static MixedRadixSystem Base12()
-			{
-				return new MixedRadixSystem(12, 8);
-			}
-
-			public static MixedRadixSystem Base16()
-			{
-				return new MixedRadixSystem(16, 8);
+				return string.Join<T>(BaseStringSeparator, array);
 			}
 		}
-
-		#endregion
-
 	}
 }

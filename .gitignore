@@ -36,6 +36,8 @@ $RECYCLE.BIN/
 .Trashes
 
 # Directories potentially created on remote AFP share
+bin/
+obj/
 *.FileListAbsolute.txt
 *.suo
 *.pdb
@@ -43,8 +45,10 @@ $RECYCLE.BIN/
 *.manifest
 *.resources
 *.cache
+*.vshost.*
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
+
