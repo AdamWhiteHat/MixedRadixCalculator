@@ -36,8 +36,6 @@ $RECYCLE.BIN/
 .Trashes
 
 # Directories potentially created on remote AFP share
-bin/
-obj/
 *.FileListAbsolute.txt
 *.suo
 *.pdb
@@ -51,4 +49,5 @@ obj/
 Network Trash Folder
 Temporary Items
 .apdisk
-
+bin/*
+obj/*
