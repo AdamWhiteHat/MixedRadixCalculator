@@ -1,5 +1,7 @@
 # MixedRadixCalculator - 52:7:24:60:60:1000
 
+Screenshot - http://2.bp.blogspot.com/-FGIEnHOY31Y/VhO5ux32orI/AAAAAAAAAUo/cvxWqchvjvQ/s1600/MixedRadixCalculator.PNG
+
   A numeral system (or system of numeration) is a writing system for expressing numbers. 
 
   The most familiar one is of course the decimal numeral system. This is a 10-base numbering system. Computers use a binary numeral system. The base is sometimes called the radix or scale.
