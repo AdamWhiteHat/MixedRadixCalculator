@@ -23,9 +23,11 @@ namespace RadixCalculator
 	{
 		public List<RadixNumeral> Digits { get; private set; }
 		public List<long> RadixValue { get { return Digits.Select(d => d.Value).ToList(); } }
-
-		public bool LeftToRight { get; set; }
 		public readonly List<long> BaseRadices;
+		public bool LeftToRight { get; set; }
+		
+		public static string BaseStringSeparator = ":";
+		public static string BaseStringSpacer = string.Format(" {0} ", BaseStringSeparator);
 
 		public long DecimalValue
 		{
@@ -57,8 +59,36 @@ namespace RadixCalculator
 
 		#region Constructors
 
-		public static string BaseStringSeparator = ":";
-		public static string BaseStringSpacer = string.Format(" {0} ",BaseStringSeparator);
+		public MixedRadixSystem(int Base, int Precision)
+			: this(Enumerable.Repeat<long>(Base, Precision).ToList())
+		{ }
+
+		public MixedRadixSystem(int Base, int Precision, Dictionary<long, string> SymbolDictionary)
+			: this(NumeralSystemDefinition: Enumerable.Repeat<long>(Base, Precision).ToList(), SymbolDictionary: SymbolDictionary, LeftToRight: false)
+		{ }
+
+		public MixedRadixSystem(List<long> NumberSystemDefinition, bool LeftToRight = false)
+			: this(ConvertListToRadixNumeralList(NumberSystemDefinition), LeftToRight)
+		{
+		}
+
+		public MixedRadixSystem(List<long> NumeralSystemDefinition, Dictionary<long, string> SymbolDictionary, bool LeftToRight = false)
+			: this(ConvertListToRadixNumeralList(NumeralSystemDefinition, SymbolDictionary), LeftToRight)
+		{
+		}
+
+		public MixedRadixSystem(List<RadixNumeral> NumberSystem, bool LeftToRight)
+		{
+			Digits = NumberSystem;
+
+			if (Digits.Count > 0)
+			{
+				this.LeftToRight = LeftToRight;
+				BaseRadices = Digits.Select(d => d.Base).ToList();
+				Zero();
+			}
+		}
+
 		public MixedRadixSystem(string NumberSystemString, bool LeftToRight)
 		{
 			if (string.IsNullOrWhiteSpace(NumberSystemString))
@@ -75,7 +105,7 @@ namespace RadixCalculator
 				long baseNumber = 0;
 				if (long.TryParse(selectedNumberSystem, out baseNumber))
 				{
-					Digits = ConvertLongListToRadixNumeralList(Enumerable.Repeat(baseNumber, 10).ToList());
+					Digits = ConvertListToRadixNumeralList(Enumerable.Repeat(baseNumber, 10).ToList());
 				}
 				else
 				{
@@ -87,7 +117,7 @@ namespace RadixCalculator
 				List<string> baseArray = new List<string>(selectedNumberSystem.Split(new string[] { BaseStringSeparator }, StringSplitOptions.RemoveEmptyEntries));
 				List<long> baseDefinition = baseArray.Select(s => long.Parse(s)).ToList();
 				BaseRadices = baseDefinition;
-				Digits = ConvertLongListToRadixNumeralList(baseDefinition);
+				Digits = ConvertListToRadixNumeralList(baseDefinition);
 			}
 
 			if (Digits.Count < 1)
@@ -99,40 +129,40 @@ namespace RadixCalculator
 			Zero();
 		}
 
-		public MixedRadixSystem(List<long> NumberSystemDefinition, bool LeftToRight = false)
+		private static List<RadixNumeral> ConvertListToRadixNumeralList(List<long> NumeralSystemDefinition)
 		{
-			Digits = ConvertLongListToRadixNumeralList(NumberSystemDefinition);
-
-			if (Digits.Count > 0)
-			{
-				this.LeftToRight = LeftToRight;
-				BaseRadices = Digits.Select(d => d.Base).ToList();
-				Zero();
-			}
+			return ConvertListToRadixNumeralList(NumeralSystemDefinition, null);
 		}
 
-		private static List<RadixNumeral> ConvertLongListToRadixNumeralList(List<long> NumberSystemDefinition)
+		private static List<RadixNumeral> ConvertListToRadixNumeralList(List<long> NumeralSystemDefinition, Dictionary<long,string> SymbolDictionary)
 		{
-			if (NumberSystemDefinition == null)
+			if (NumeralSystemDefinition == null)
 			{
 				throw new ArgumentNullException("NumberSystemDefinition");
 			}
-			if (NumberSystemDefinition.Count < 1)
+			if (NumeralSystemDefinition.Count < 1)
 			{
 				throw new ArgumentException("List cannot be empty.", "NumberSystemDefinition");
 			}
 
-			NumberSystemDefinition.Add(-1);
+			NumeralSystemDefinition.Add(-1);
 
 			RadixNumeral rLast = RadixNumeral.Empty;
 			List<RadixNumeral> result = new List<RadixNumeral>();
-			foreach (long radixBase in NumberSystemDefinition)
+			foreach (long radixBase in NumeralSystemDefinition)
 			{
 				RadixNumeral radNew = RadixNumeral.Empty;
 
 				if (radixBase != -1)
 				{
-					radNew = new RadixNumeral(radixBase);
+					if (SymbolDictionary == null)
+					{
+						radNew = new RadixNumeral(radixBase);
+					}
+					else
+					{
+						radNew = new RadixNumeral(radixBase, SymbolDictionary);
+					}
 
 					if (rLast == RadixNumeral.Empty)
 					{
@@ -165,10 +195,6 @@ namespace RadixCalculator
 				throw new Exception("result.Count < 1");
 			}
 		}
-
-		public MixedRadixSystem(int Base, int Precision)
-			: this(Enumerable.Repeat<long>(Base, Precision).ToList())
-		{ }
 
 		#endregion
 

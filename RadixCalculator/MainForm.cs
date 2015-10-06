@@ -35,7 +35,7 @@ namespace RadixCalculator
 
 		void Initialize()
 		{
-			radixCalc = MixedRadixSystem.Factory.TimeDateRadix1();
+			radixCalc = MixedRadixSystem.Factory.TimeDateRadix52();
 			radixCalc.LeftToRight = cbLeftToRight.Checked;
 			panelCustom.Visible = false;
 

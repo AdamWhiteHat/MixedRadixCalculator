@@ -66,12 +66,7 @@ namespace RadixCalculator
 			{
 				this.Base = RadixBase;
 
-				long counter = 0;
-				while (counter < Base)
-				{
-					SymbolDictionary.Add(counter, counter.ToString());
-					counter++;
-				}
+				SymbolDictionary = GenerateSymbolDictionary(RadixBase);
 			}
 
 			public RadixNumeral(long RadixBase, Dictionary<long, string> symbolDictionary)				
@@ -97,6 +92,18 @@ namespace RadixCalculator
 				{
 					AddDecimalValue(1);
 				}
+			}
+
+			public static Dictionary<long,string> GenerateSymbolDictionary(long RadixBase)				
+			{
+				long counter = 0;
+				Dictionary<long, string> result = new Dictionary<long, string>();				
+				while (counter < RadixBase)
+				{
+					result.Add(counter, counter.ToString());
+					counter++;
+				}
+				return result;
 			}
 
 			public void AddDecimalValue(long DecimalValue)
