@@ -125,17 +125,16 @@ namespace RadixCalculator
 		
 		private void cbRightToLeft_CheckedChanged(object sender, EventArgs e)
 		{
-			bool leftMostSignifigant = cbLeftToRight.Checked;
+			radixCalc.LeftToRight = cbLeftToRight.Checked;
 			ContentAlignment labelAlignment = ContentAlignment.MiddleRight;
 			HorizontalAlignment textboxAlignment = HorizontalAlignment.Right;
 
-			if (leftMostSignifigant)
+			if (radixCalc.LeftToRight)
 			{
 				labelAlignment = ContentAlignment.MiddleLeft;
 				textboxAlignment = HorizontalAlignment.Left;
 			}
 
-			radixCalc.LeftToRight = leftMostSignifigant;
 			lblCurrentRadixSystem.TextAlign = labelAlignment;
 			lblDecimalValue.TextAlign = labelAlignment;
 			tbRadixValue.TextAlign = textboxAlignment;

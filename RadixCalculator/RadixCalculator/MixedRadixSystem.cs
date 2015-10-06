@@ -33,10 +33,14 @@ namespace RadixCalculator
 			{
 				checked
 				{
+					double counter = 0;
 					long result = 0;
 					foreach (RadixNumeral radix in Digits)
 					{
-						result += (radix.Base * radix.Value);
+						long placeValue = (long)Math.Pow(7, counter);
+						result += (placeValue * radix.Value);
+
+						counter++;
 					}
 					return result;
 				}
@@ -50,7 +54,7 @@ namespace RadixCalculator
 				}
 			}
 		}
-		
+
 		#region Constructors
 
 		public static string BaseStringSeparator = " : ";
@@ -60,8 +64,9 @@ namespace RadixCalculator
 			{
 				throw new ArgumentNullException("NumberSystemString", "Argument NumberSystemString cannot be null or empty.");
 			}
+			this.LeftToRight = LeftToRight;
 
-			string selectedNumberSystem = NumberSystemString;			
+			string selectedNumberSystem = NumberSystemString;
 			if (selectedNumberSystem.Contains("Base "))
 			{
 				selectedNumberSystem = selectedNumberSystem.Replace("Base ", "");
@@ -74,14 +79,14 @@ namespace RadixCalculator
 				else
 				{
 					throw new Exception(string.Format("Cannot parse base \"{0}\".", selectedNumberSystem));
-				}				
+				}
 			}
 			else if (selectedNumberSystem.Contains(BaseStringSeparator))
 			{
 				List<string> baseArray = new List<string>(selectedNumberSystem.Split(new string[] { BaseStringSeparator }, StringSplitOptions.RemoveEmptyEntries));
 				List<long> baseDefinition = baseArray.Select(s => long.Parse(s)).ToList();
 				BaseRadices = baseDefinition;
-				Digits = ConvertLongListToRadixNumeralList(baseDefinition);				
+				Digits = ConvertLongListToRadixNumeralList(baseDefinition);
 			}
 
 			if (Digits.Count < 1)
@@ -105,7 +110,7 @@ namespace RadixCalculator
 			}
 		}
 
-		private List<RadixNumeral> ConvertLongListToRadixNumeralList(List<long> NumberSystemDefinition)
+		private static List<RadixNumeral> ConvertLongListToRadixNumeralList(List<long> NumberSystemDefinition)
 		{
 			if (NumberSystemDefinition == null)
 			{
@@ -192,25 +197,18 @@ namespace RadixCalculator
 		{
 			int counter = 0;
 			List<string> paddedArray = RadixValue.Select(b => b.ToString().PadLeft(BaseRadices[counter++].ToString().Length)).ToList();
-			return formatArrayString(paddedArray);
+			return formatArrayString(paddedArray, BaseStringSeparator);
 		}
 
 		public override string ToString()
 		{
-			return string.Join(" ", Digits.Select(d => d.ToString()));
-			//return formatArrayString(BaseRadices);
+			IEnumerable<string> digitCollection = Digits.Select(d => d.ToString());
+			return formatArrayString(digitCollection, " ");
 		}
 
-		private string formatArrayString<T>(IEnumerable<T> array)
+		private string formatArrayString<T>(IEnumerable<T> array, string separator)
 		{
-			if (!LeftToRight)
-			{
-				return string.Join(BaseStringSeparator, array.Reverse());
-			}
-			else
-			{
-				return string.Join<T>(BaseStringSeparator, array);
-			}
+			return string.Join<T>(separator, LeftToRight ? array : array.Reverse());
 		}
 	}
 }

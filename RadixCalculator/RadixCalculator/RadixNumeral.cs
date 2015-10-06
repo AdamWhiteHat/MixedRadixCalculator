@@ -76,6 +76,7 @@ namespace RadixCalculator
 
 			public RadixNumeral(long RadixBase, Dictionary<long, string> symbolDictionary)				
 			{
+				this.Base = RadixBase;
 				this.SymbolDictionary = symbolDictionary;
 			}
 
@@ -123,7 +124,7 @@ namespace RadixCalculator
 						Value = remainder;
 						Next.AddDecimalValue(quotient);
 					}
-					else if (newValue < Base)
+					else if (newValue < this.Base)
 					{
 						Value = newValue;
 					}
