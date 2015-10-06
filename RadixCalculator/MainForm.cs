@@ -62,8 +62,8 @@ namespace RadixCalculator
 		void UpdateGUI()
 		{			
 			tbRadixValue.Text = radixCalc.GetValue();
-			lblDecimalValue.Text = radixCalc.DecimalValue.ToString();
-			lblCurrentRadixSystem.Text = radixCalc.ToString();
+			tbCurrentRadixSystem.Text = radixCalc.ToString();
+			tbDecimalValue.Text = string.Format("{0:n0}", radixCalc.DecimalValue);
 		}
 			
 		void BtnIncrementClick(object sender, EventArgs e)
@@ -126,17 +126,15 @@ namespace RadixCalculator
 		private void cbRightToLeft_CheckedChanged(object sender, EventArgs e)
 		{
 			radixCalc.LeftToRight = cbLeftToRight.Checked;
-			ContentAlignment labelAlignment = ContentAlignment.MiddleRight;
 			HorizontalAlignment textboxAlignment = HorizontalAlignment.Right;
 
 			if (radixCalc.LeftToRight)
 			{
-				labelAlignment = ContentAlignment.MiddleLeft;
 				textboxAlignment = HorizontalAlignment.Left;
 			}
 
-			lblCurrentRadixSystem.TextAlign = labelAlignment;
-			lblDecimalValue.TextAlign = labelAlignment;
+			tbCurrentRadixSystem.TextAlign = textboxAlignment;
+			tbDecimalValue.TextAlign = textboxAlignment;
 			tbRadixValue.TextAlign = textboxAlignment;
 
 			UpdateGUI();
@@ -184,7 +182,7 @@ namespace RadixCalculator
 
 		private void btnCustomSave_Click(object sender, EventArgs e)
 		{
-			if (tbCustomDigit.Text.Contains(":"))
+			if (tbCustomDigit.Text.Contains(MixedRadixSystem.BaseStringSeparator))
 			{
 				listNumberSystems.Items.Add(tbCustomDigit.Text);
 			}

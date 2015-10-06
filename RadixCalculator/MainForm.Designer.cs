@@ -51,10 +51,8 @@ namespace RadixCalculator
 			this.tbIncrementAmmount = new System.Windows.Forms.TextBox();
 			this.btnIncrement5 = new System.Windows.Forms.Button();
 			this.btnClear = new System.Windows.Forms.Button();
-			this.lblCurrentRadixSystem = new System.Windows.Forms.Label();
 			this.cbLeftToRight = new System.Windows.Forms.CheckBox();
 			this.panelRadixUse = new System.Windows.Forms.Panel();
-			this.lblDecimalValue = new System.Windows.Forms.Label();
 			this.labelHeaderRight = new System.Windows.Forms.Label();
 			this.panelRadixChoose = new System.Windows.Forms.Panel();
 			this.labelHeaderLeft = new System.Windows.Forms.Label();
@@ -68,6 +66,8 @@ namespace RadixCalculator
 			this.btnCreate = new System.Windows.Forms.Button();
 			this.btnLoad = new System.Windows.Forms.Button();
 			this.listNumberSystems = new System.Windows.Forms.ListBox();
+			this.tbDecimalValue = new System.Windows.Forms.TextBox();
+			this.tbCurrentRadixSystem = new System.Windows.Forms.TextBox();
 			this.groupBox1.SuspendLayout();
 			this.panelRadixUse.SuspendLayout();
 			this.panelRadixChoose.SuspendLayout();
@@ -78,12 +78,13 @@ namespace RadixCalculator
 			// 
 			this.tbRadixValue.BackColor = System.Drawing.SystemColors.Control;
 			this.tbRadixValue.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tbRadixValue.Location = new System.Drawing.Point(17, 38);
+			this.tbRadixValue.Location = new System.Drawing.Point(17, 35);
 			this.tbRadixValue.Name = "tbRadixValue";
 			this.tbRadixValue.Size = new System.Drawing.Size(540, 21);
 			this.tbRadixValue.TabIndex = 0;
 			this.tbRadixValue.Text = "0 : 0 : 0 : 0 ";
 			this.tbRadixValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.tbRadixValue.WordWrap = false;
 			// 
 			// btnIncrement
 			// 
@@ -177,23 +178,13 @@ namespace RadixCalculator
 			// btnClear
 			// 
 			this.btnClear.AutoSize = true;
-			this.btnClear.Location = new System.Drawing.Point(483, 8);
+			this.btnClear.Location = new System.Drawing.Point(482, 6);
 			this.btnClear.Name = "btnClear";
 			this.btnClear.Size = new System.Drawing.Size(75, 23);
 			this.btnClear.TabIndex = 7;
 			this.btnClear.Text = "Clear";
 			this.btnClear.UseVisualStyleBackColor = true;
 			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-			// 
-			// lblCurrentRadixSystem
-			// 
-			this.lblCurrentRadixSystem.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold);
-			this.lblCurrentRadixSystem.Location = new System.Drawing.Point(17, 61);
-			this.lblCurrentRadixSystem.Name = "lblCurrentRadixSystem";
-			this.lblCurrentRadixSystem.Size = new System.Drawing.Size(542, 16);
-			this.lblCurrentRadixSystem.TabIndex = 8;
-			this.lblCurrentRadixSystem.Text = "[0] [0] [0] [0]";
-			this.lblCurrentRadixSystem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// cbLeftToRight
 			// 
@@ -208,11 +199,11 @@ namespace RadixCalculator
 			// 
 			// panelRadixUse
 			// 
-			this.panelRadixUse.Controls.Add(this.lblDecimalValue);
+			this.panelRadixUse.Controls.Add(this.tbCurrentRadixSystem);
+			this.panelRadixUse.Controls.Add(this.tbDecimalValue);
 			this.panelRadixUse.Controls.Add(this.tbRadixValue);
 			this.panelRadixUse.Controls.Add(this.cbLeftToRight);
 			this.panelRadixUse.Controls.Add(this.groupBox1);
-			this.panelRadixUse.Controls.Add(this.lblCurrentRadixSystem);
 			this.panelRadixUse.Controls.Add(this.btnClear);
 			this.panelRadixUse.Controls.Add(this.labelHeaderRight);
 			this.panelRadixUse.Location = new System.Drawing.Point(9, 212);
@@ -220,23 +211,13 @@ namespace RadixCalculator
 			this.panelRadixUse.Size = new System.Drawing.Size(566, 190);
 			this.panelRadixUse.TabIndex = 10;
 			// 
-			// lblDecimalValue
-			// 
-			this.lblDecimalValue.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold);
-			this.lblDecimalValue.Location = new System.Drawing.Point(17, 85);
-			this.lblDecimalValue.Name = "lblDecimalValue";
-			this.lblDecimalValue.Size = new System.Drawing.Size(536, 16);
-			this.lblDecimalValue.TabIndex = 13;
-			this.lblDecimalValue.Text = "0";
-			this.lblDecimalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
 			// labelHeaderRight
 			// 
 			this.labelHeaderRight.Location = new System.Drawing.Point(3, 4);
 			this.labelHeaderRight.Name = "labelHeaderRight";
 			this.labelHeaderRight.Size = new System.Drawing.Size(294, 13);
 			this.labelHeaderRight.TabIndex = 12;
-			this.labelHeaderRight.Text = "    Use your mixed radix number system";
+			this.labelHeaderRight.Text = "    Use your mixed radix number system:";
 			// 
 			// panelRadixChoose
 			// 
@@ -356,6 +337,32 @@ namespace RadixCalculator
 			this.listNumberSystems.Size = new System.Drawing.Size(207, 160);
 			this.listNumberSystems.TabIndex = 0;
 			// 
+			// tbDecimalValue
+			// 
+			this.tbDecimalValue.BackColor = System.Drawing.SystemColors.Control;
+			this.tbDecimalValue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.tbDecimalValue.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tbDecimalValue.Location = new System.Drawing.Point(17, 83);
+			this.tbDecimalValue.Name = "tbDecimalValue";
+			this.tbDecimalValue.Size = new System.Drawing.Size(540, 14);
+			this.tbDecimalValue.TabIndex = 14;
+			this.tbDecimalValue.Text = "0";
+			this.tbDecimalValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.tbDecimalValue.WordWrap = false;
+			// 
+			// tbCurrentRadixSystem
+			// 
+			this.tbCurrentRadixSystem.BackColor = System.Drawing.SystemColors.Control;
+			this.tbCurrentRadixSystem.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.tbCurrentRadixSystem.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tbCurrentRadixSystem.Location = new System.Drawing.Point(17, 63);
+			this.tbCurrentRadixSystem.Name = "tbCurrentRadixSystem";
+			this.tbCurrentRadixSystem.Size = new System.Drawing.Size(540, 14);
+			this.tbCurrentRadixSystem.TabIndex = 15;
+			this.tbCurrentRadixSystem.Text = "[0] [0] [0] [0]";
+			this.tbCurrentRadixSystem.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.tbCurrentRadixSystem.WordWrap = false;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -389,7 +396,6 @@ namespace RadixCalculator
 		private System.Windows.Forms.Button btnCustomAmmount;
 		private System.Windows.Forms.TextBox tbIncrementAmmount;
 		private System.Windows.Forms.Button btnClear;
-		private System.Windows.Forms.Label lblCurrentRadixSystem;
 		private System.Windows.Forms.CheckBox cbLeftToRight;
 		private System.Windows.Forms.Panel panelRadixUse;
 		private System.Windows.Forms.Panel panelRadixChoose;
@@ -405,6 +411,7 @@ namespace RadixCalculator
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.Label labelHeaderRight;
 		private System.Windows.Forms.Label labelHeaderLeft;
-		private System.Windows.Forms.Label lblDecimalValue;
+		private System.Windows.Forms.TextBox tbDecimalValue;
+		private System.Windows.Forms.TextBox tbCurrentRadixSystem;
 	}
 }

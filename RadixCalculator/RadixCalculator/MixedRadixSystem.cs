@@ -37,7 +37,7 @@ namespace RadixCalculator
 					long result = 0;
 					foreach (RadixNumeral radix in Digits)
 					{
-						long placeValue = (long)Math.Pow(7, counter);
+						long placeValue = (long)Math.Pow(radix.Base, counter);
 						result += (placeValue * radix.Value);
 
 						counter++;
@@ -57,7 +57,8 @@ namespace RadixCalculator
 
 		#region Constructors
 
-		public static string BaseStringSeparator = " : ";
+		public static string BaseStringSeparator = ":";
+		public static string BaseStringSpacer = string.Format(" {0} ",BaseStringSeparator);
 		public MixedRadixSystem(string NumberSystemString, bool LeftToRight)
 		{
 			if (string.IsNullOrWhiteSpace(NumberSystemString))
@@ -197,7 +198,7 @@ namespace RadixCalculator
 		{
 			int counter = 0;
 			List<string> paddedArray = RadixValue.Select(b => b.ToString().PadLeft(BaseRadices[counter++].ToString().Length)).ToList();
-			return formatArrayString(paddedArray, BaseStringSeparator);
+			return formatArrayString(paddedArray, BaseStringSpacer);
 		}
 
 		public override string ToString()
