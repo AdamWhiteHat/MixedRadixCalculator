@@ -61,8 +61,8 @@ namespace RadixCalculator
 
 		void UpdateGUI()
 		{			
-			tbRadixValue.Text = radixCalc.GetValue();
-			tbCurrentRadixSystem.Text = radixCalc.ToString();
+			tbTabularFormat.Text = radixCalc.GetTabularFormat();
+			tbNumeralFormat.Text = radixCalc.GetNumeralFormat();
 			tbDecimalValue.Text = string.Format("{0:n0}", radixCalc.DecimalValue);
 		}
 			
@@ -133,9 +133,9 @@ namespace RadixCalculator
 				textboxAlignment = HorizontalAlignment.Left;
 			}
 
-			tbCurrentRadixSystem.TextAlign = textboxAlignment;
+			tbNumeralFormat.TextAlign = textboxAlignment;
 			tbDecimalValue.TextAlign = textboxAlignment;
-			tbRadixValue.TextAlign = textboxAlignment;
+			tbTabularFormat.TextAlign = textboxAlignment;
 
 			UpdateGUI();
 		}

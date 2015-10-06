@@ -194,17 +194,22 @@ namespace RadixCalculator
 			//while (Value-- > 0) { Increment(); }
 		}
 
-		public string GetValue()
+		public string GetTabularFormat()
 		{
 			int counter = 0;
 			List<string> paddedArray = RadixValue.Select(b => b.ToString().PadLeft(BaseRadices[counter++].ToString().Length)).ToList();
 			return formatArrayString(paddedArray, BaseStringSpacer);
 		}
 
-		public override string ToString()
+		public string GetNumeralFormat()
 		{
 			IEnumerable<string> digitCollection = Digits.Select(d => d.ToString());
 			return formatArrayString(digitCollection, " ");
+		}
+
+		public override string ToString()
+		{
+			return GetNumeralFormat();
 		}
 
 		private string formatArrayString<T>(IEnumerable<T> array, string separator)
