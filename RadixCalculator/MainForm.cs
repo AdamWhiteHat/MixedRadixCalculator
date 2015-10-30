@@ -23,7 +23,7 @@ namespace RadixCalculator
 	/// </summary>
 	public partial class MainForm : Form
 	{
-		MixedRadixSystem radixCalc;
+		MixedRadixSystem currentNumeralSystem;
 
 
 		public MainForm()
@@ -35,75 +35,82 @@ namespace RadixCalculator
 
 		void Initialize()
 		{
-			radixCalc = MixedRadixSystem.Factory.TimeDateRadix52();
-			radixCalc.LeftToRight = cbLeftToRight.Checked;
+			currentNumeralSystem = MixedRadixSystem.Factory.TimeDateRadix52();
+			currentNumeralSystem.LeftToRight = cbLeftToRight.Checked;
 			panelCustom.Visible = false;
 
 			listNumberSystems.Items.Add("Base 2");
 			listNumberSystems.Items.Add("Base 3");
+			listNumberSystems.Items.Add("Base 5");
 			listNumberSystems.Items.Add("Base 7");
 			listNumberSystems.Items.Add("Base 10");
 			listNumberSystems.Items.Add("Base 12");
 			listNumberSystems.Items.Add("Base 16");
+			listNumberSystems.Items.Add("Base 256");
 			listNumberSystems.Items.Add("60:60:24:7:4:12");
 			listNumberSystems.Items.Add("60:60:24:360");
 			listNumberSystems.Items.Add("60:60:24:6:60");
+			listNumberSystems.Items.Add("1:2:3:4:5:6:7:8:9");
 			listNumberSystems.Items.Add("3:5:7:11:13:17:19:23:29");
 			listNumberSystems.Items.Add("2:3:5:8:13:21:34:55:89:144:233");
-			listNumberSystems.Items.Add("1:2:3:4:5:6:7:8:9");
-			listNumberSystems.Items.Add("3:3:3:3:3:3:3:3:3:3:3:3");
-			listNumberSystems.Items.Add("5:5:5:5:5:5:5:5:5:5:5:5");
-			listNumberSystems.Items.Add("7:7:7:7:7:7:7:7:7:7:7:7");
+			listNumberSystems.Items.Add("*Hexadecimal");
+			listNumberSystems.Items.Add("*Symbols9");
+			listNumberSystems.Items.Add("*Lines");
+			listNumberSystems.Items.Add("*Alien");
 
 
-			panelRadixChoose.BringToFront();			
+
+			panelRadixChoose.BringToFront();
 		}
 
 		void UpdateGUI()
-		{			
-			tbTabularFormat.Text = radixCalc.GetTabularFormat();
-			tbNumeralFormat.Text = radixCalc.GetNumeralFormat();
-			tbDecimalValue.Text = string.Format("{0:n0}", radixCalc.DecimalValue);
+		{
+			tbTabularFormat.Text = currentNumeralSystem.GetTabularFormat();
+			tbNumeralFormat.Text = currentNumeralSystem.GetNumeralFormat();
+			tbDecimalValue.Text = string.Format("{0:n0}", currentNumeralSystem.DecimalValue);
 		}
-			
+
 		void BtnIncrementClick(object sender, EventArgs e)
 		{
-			radixCalc.Increment();
+			currentNumeralSystem.Increment();
 			UpdateGUI();
 		}
 
 		private void btnIncrement5_Click(object sender, EventArgs e)
 		{
-			radixCalc.AddDecimalValue(5);
+			currentNumeralSystem.AddDecimalValue(5);
 			UpdateGUI();
 		}
-		
+
 		void BtnIncrement10Click(object sender, EventArgs e)
 		{
-			radixCalc.AddDecimalValue(10);
+			currentNumeralSystem.AddDecimalValue(10);
 			UpdateGUI();
 		}
-		
+
 		void BtnIncrement100Click(object sender, EventArgs e)
 		{
-			radixCalc.AddDecimalValue(100);
+			currentNumeralSystem.AddDecimalValue(100);
 			UpdateGUI();
+			int i = 100;
+			i++;
+
 		}
-		
+
 		private void btnCustomAmmount_Click(object sender, EventArgs e)
 		{
 			int customAmnt = 0;
 			if (int.TryParse(tbIncrementAmmount.Text, out customAmnt))
 			{
-				radixCalc.AddDecimalValue(customAmnt);
+				currentNumeralSystem.AddDecimalValue(customAmnt);
 				UpdateGUI();
 			}
 		}
-				
+
 		bool IsTimer = false;
 		void BtnAutoClick(object sender, EventArgs e)
 		{
-			if(IsTimer)
+			if (IsTimer)
 			{
 				timerAutoIncrement.Stop();
 				IsTimer = false;
@@ -116,19 +123,19 @@ namespace RadixCalculator
 				btnAuto.Text = "Stop Auto";
 			}
 		}
-		
+
 		void AutoIncrement1Tick(object sender, EventArgs e)
 		{
-			radixCalc.Increment();
+			currentNumeralSystem.Increment();
 			UpdateGUI();
 		}
-		
+
 		private void cbRightToLeft_CheckedChanged(object sender, EventArgs e)
 		{
-			radixCalc.LeftToRight = cbLeftToRight.Checked;
+			currentNumeralSystem.LeftToRight = cbLeftToRight.Checked;
 			HorizontalAlignment textboxAlignment = HorizontalAlignment.Right;
 
-			if (radixCalc.LeftToRight)
+			if (currentNumeralSystem.LeftToRight)
 			{
 				textboxAlignment = HorizontalAlignment.Left;
 			}
@@ -142,7 +149,7 @@ namespace RadixCalculator
 
 		private void btnClear_Click(object sender, EventArgs e)
 		{
-			radixCalc.Zero();
+			currentNumeralSystem.Zero();
 			UpdateGUI();
 		}
 
@@ -150,13 +157,31 @@ namespace RadixCalculator
 		{
 			string selectedNumberSystem = Convert.ToString(listNumberSystems.SelectedItem);
 
-			radixCalc = new MixedRadixSystem(selectedNumberSystem, cbLeftToRight.Checked);			
+			switch (selectedNumberSystem)
+			{
+				case "*Hexadecimal":
+					currentNumeralSystem = MixedRadixSystem.Factory.Hexadecimal();
+					break;
+				case "*Symbols9":
+					currentNumeralSystem = MixedRadixSystem.Factory.Symbols9();
+					break;
+				case "*Lines":
+					currentNumeralSystem = MixedRadixSystem.Factory.Lines();
+					break;
+				case "*Alien":
+					currentNumeralSystem = MixedRadixSystem.Factory.Alien();
+					break;
+				default:
+					currentNumeralSystem = new MixedRadixSystem(selectedNumberSystem, cbLeftToRight.Checked);
+					break;
+			}
+			
 
 			UpdateGUI();
 		}
 
 		List<long> customRadixSystem = new List<long>();
-		
+
 		private void btnCustomAdd_Click(object sender, EventArgs e)
 		{
 			long digit = 0;
@@ -177,7 +202,7 @@ namespace RadixCalculator
 		private void btnCreate_Click(object sender, EventArgs e)
 		{
 			clearCustom();
-			panelCustom.Visible = true;			
+			panelCustom.Visible = true;
 		}
 
 		private void btnCustomSave_Click(object sender, EventArgs e)

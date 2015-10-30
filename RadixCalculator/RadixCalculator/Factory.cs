@@ -61,7 +61,7 @@ namespace RadixCalculator
 				return new MixedRadixSystem(16, 10, symbolDict);
 			}
 
-			public static MixedRadixSystem Symbols5()
+			public static MixedRadixSystem Slashes()
 			{
 				Dictionary<long, string> symbolDict = new Dictionary<long, string>();
 				
@@ -97,12 +97,13 @@ namespace RadixCalculator
 			{
 				Dictionary<long, string> symbolDict = new Dictionary<long, string>();
 
-				symbolDict.Add(0, " ");
-				symbolDict.Add(1, "|");
-				symbolDict.Add(2, "V");
-				symbolDict.Add(3, "Y");
-				symbolDict.Add(4, "X");
-				symbolDict.Add(5, "*");
+				int counter = -1;
+				symbolDict.Add(++counter, " ");
+				symbolDict.Add(++counter, "|");
+				symbolDict.Add(++counter, "V");
+				symbolDict.Add(++counter, "Y");
+				symbolDict.Add(++counter, "X");
+				symbolDict.Add(++counter, "*");
 
 				return new MixedRadixSystem(5, 10, symbolDict);
 			}
@@ -114,36 +115,55 @@ namespace RadixCalculator
 				Dictionary<long, string> symbolDict3dots = new Dictionary<long, string>();
 				Dictionary<long, string> symbolDict3slashes = new Dictionary<long, string>();
 
-				symbolDict4.Add(0, " ");
-				symbolDict4.Add(1,@"\");
-				symbolDict4.Add(2, "V");
-				symbolDict4.Add(3, "Y");
-				symbolDict4.Add(4, "X");
+				int counter = 0;
+				symbolDict4.Add(counter++, " ");
+				symbolDict4.Add(counter++, @"\");
+				symbolDict4.Add(counter++, "V");
+				symbolDict4.Add(counter++, "Y");
+				symbolDict4.Add(counter++, "X");
 
-				symbolDict3dots.Add(0, " ");
-				symbolDict3dots.Add(1, ".");
-				symbolDict3dots.Add(2, ",");
-				symbolDict3dots.Add(3, ";");
+				counter = 0;
+				symbolDict3dots.Add(counter++, " ");
+				symbolDict3dots.Add(counter++, ".");
+				symbolDict3dots.Add(counter++, ",");
+				symbolDict3dots.Add(counter++, ";");
 
-				symbolDict3slashes.Add(0, " ");
-				symbolDict3slashes.Add(1, "\\");
-				symbolDict3slashes.Add(2, "/");
-				symbolDict3slashes.Add(3, "X");
+				counter = 0;
+				symbolDict3slashes.Add(counter++, " ");
+				symbolDict3slashes.Add(counter++, "\\");
+				symbolDict3slashes.Add(counter++, "/");
+				symbolDict3slashes.Add(counter++, "X");
 
-				symbolDict5.Add(0, " ");
-				symbolDict5.Add(1, "|");
-				symbolDict5.Add(2, "L");
-				symbolDict5.Add(3, "C");
-				symbolDict5.Add(4, "E");
-				symbolDict5.Add(4, "8");
+				counter = 0;
+				symbolDict5.Add(counter++, " ");
+				symbolDict5.Add(counter++, "|");
+				symbolDict5.Add(counter++, "L");
+				symbolDict5.Add(counter++, "C");
+				symbolDict5.Add(counter++, "E");
+				symbolDict5.Add(counter++, "8");
+
+				List<Dictionary<long, string>> symbolDictionaryList = new List<Dictionary<long, string>>();
+				symbolDictionaryList.Add(symbolDict5);
+				symbolDictionaryList.Add(symbolDict3dots);
+				symbolDictionaryList.Add(symbolDict4);
+				symbolDictionaryList.Add(symbolDict3slashes);
+				symbolDictionaryList.Add(symbolDict3slashes);
+				symbolDictionaryList.Add(symbolDict3slashes);
+				symbolDictionaryList.Add(symbolDict3slashes);
+
+				List<long> radixDefinition = new List<long>();
+				radixDefinition.Add(5);
+				radixDefinition.Add(3);
+				radixDefinition.Add(4);
+				radixDefinition.Add(3);
+				radixDefinition.Add(3);
+				radixDefinition.Add(3);
+				radixDefinition.Add(3);
 
 				List<RadixNumeral> radii = new List<RadixNumeral>();
-				radii.Add( new RadixNumeral(3, symbolDict3dots) );
-				radii.Add( new RadixNumeral(3, symbolDict3slashes) );
-				radii.Add( new RadixNumeral(4, symbolDict4) );
-				radii.Add( new RadixNumeral(5, symbolDict5) );
-
-				return new MixedRadixSystem(radii);
+				radii = MixedRadixSystem.ConvertListToRadixNumeralList(radixDefinition, symbolDictionaryList);
+				MixedRadixSystem result = new MixedRadixSystem(radii);
+				return result;
 			}
 
 			public static MixedRadixSystem Base2()

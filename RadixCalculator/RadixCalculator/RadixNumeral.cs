@@ -65,11 +65,11 @@ namespace RadixCalculator
 				: this()
 			{
 				this.Base = RadixBase;
-
 				SymbolDictionary = GenerateSymbolDictionary(RadixBase);
 			}
 
-			public RadixNumeral(long RadixBase, Dictionary<long, string> symbolDictionary)				
+			public RadixNumeral(long RadixBase, Dictionary<long, string> symbolDictionary)
+				: this()
 			{
 				this.Base = RadixBase;
 				this.SymbolDictionary = symbolDictionary;
