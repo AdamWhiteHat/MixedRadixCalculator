@@ -21,6 +21,8 @@ namespace RadixCalculator
 {
 	public partial class MixedRadixSystem
 	{
+		#region Members
+
 		public List<RadixNumeral> Digits { get; private set; }
 		public List<long> RadixValue { get { return Digits.Select(d => d.Value).ToList(); } }
 		public readonly List<long> BaseRadices;
@@ -57,6 +59,8 @@ namespace RadixCalculator
 			}
 		}
 
+		#endregion
+
 		#region Constructors
 
 		public MixedRadixSystem(int Base, int Precision)
@@ -77,7 +81,7 @@ namespace RadixCalculator
 		{
 		}
 
-		public MixedRadixSystem(List<RadixNumeral> NumberSystem, bool LeftToRight)
+		public MixedRadixSystem(List<RadixNumeral> NumberSystem, bool LeftToRight = false)
 		{
 			Digits = NumberSystem;
 

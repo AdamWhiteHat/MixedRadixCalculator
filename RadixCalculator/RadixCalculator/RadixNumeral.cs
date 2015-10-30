@@ -49,7 +49,7 @@ namespace RadixCalculator
 			private RadixNumeral _lessSignifigantNumeral = null;
 
 			#endregion // Members
-
+			
 
 
 			#region Constructors
