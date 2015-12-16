@@ -48,7 +48,7 @@ namespace RadixCalculator
 			listNumberSystems.Items.Add("Base 16");
 			listNumberSystems.Items.Add("Base 256");
 			listNumberSystems.Items.Add("60:60:24:7:4:12");
-			listNumberSystems.Items.Add("60:60:24:360");
+			listNumberSystems.Items.Add("60:60:24:360:280000");
 			listNumberSystems.Items.Add("60:60:24:6:60");
 			listNumberSystems.Items.Add("1:2:3:4:5:6:7:8:9");
 			listNumberSystems.Items.Add("3:5:7:11:13:17:19:23:29");

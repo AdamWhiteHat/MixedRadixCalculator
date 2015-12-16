@@ -65,7 +65,6 @@ namespace RadixCalculator
 				: this()
 			{
 				this.Base = RadixBase;
-				SymbolDictionary = GenerateSymbolDictionary(RadixBase);
 			}
 
 			public RadixNumeral(long RadixBase, Dictionary<long, string> symbolDictionary)
