@@ -222,15 +222,24 @@ namespace RadixCalculator
 
         private void btnCustomSave_Click(object sender, EventArgs e)
         {
-            if (tbCustomDigit.Text.Contains(MixedRadixSystem.BaseStringSeparator))
+            if (!string.IsNullOrWhiteSpace(tbCustomDigit.Text))
             {
-                listNumberSystems.Items.Add(tbCustomDigit.Text);
+
+                if (customRadixSystem.Count == 0 && tbCustomDigit.Text.Contains(MixedRadixSystem.BaseStringSeparator))
+                {
+                    listNumberSystems.Items.Add(tbCustomDigit.Text);
+                    return;
+                }
+
+                btnCustomAdd_Click(null, null);
             }
-            else
+
+            if(customRadixSystem.Count > 0)
             {
                 listNumberSystems.Items.Add(string.Join(MixedRadixSystem.BaseStringSeparator, customRadixSystem));
-                customRadixSystem = new List<long>();
+                customRadixSystem.Clear();
             }
+
             panelCustom.Visible = false;
             //clearCustom();
         }
