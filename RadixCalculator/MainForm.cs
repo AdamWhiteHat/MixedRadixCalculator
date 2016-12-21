@@ -100,7 +100,7 @@ namespace RadixCalculator
 
         private void btnCustomAmmount_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(tbIncrementAmmount.Text))
+            if (string.IsNullOrWhiteSpace(tbIncrementAmmount.Text))
             { return; }
 
             BigInteger customAmnt = BigInteger.Parse(tbIncrementAmmount.Text);
