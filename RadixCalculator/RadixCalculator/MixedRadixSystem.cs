@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 
 
@@ -31,32 +32,24 @@ namespace RadixCalculator
         public static string BaseStringSeparator = ":";
         public static string BaseStringSpacer = string.Format(" {0} ", BaseStringSeparator);
 
-        public long DecimalValue
+        public BigInteger DecimalValue
         {
             get
             {
                 checked
                 {
-                    double counter = 0;
-                    long result = 0;
+                    int counter = 0;
+                    BigInteger result = 0;
                     foreach (RadixNumeral radix in Digits)
                     {
-                        long placeValue = (long)Math.Pow(radix.Base, counter);
-                        result += (placeValue * radix.Value);
+                        BigInteger placeValue = BigInteger.Pow(radix.Base, counter);                        
+                        result += BigInteger.Multiply(placeValue, radix.Value);
 
                         counter++;
                     }
                     return result;
                 }
-            }
-            set
-            {
-                if (value > 0)
-                {
-                    this.Zero();
-                    this.AddDecimalValue(value);
-                }
-            }
+            }            
         }
 
         #endregion
