@@ -3,7 +3,7 @@
 
 
 
-![Screenshot](https://static.wixstatic.com/media/427347_88e3941b55654941a1df471e71be40d5.png)
+![Screenshot](https://github.com/AdamRakaska/MixedRadixCalculator/blob/master/MixedRadixCalculator.PNG)
 
   A numeral system (or system of numeration) is a writing system for expressing numbers. 
 
