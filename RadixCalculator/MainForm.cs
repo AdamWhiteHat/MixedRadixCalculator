@@ -79,19 +79,19 @@ namespace RadixCalculator
 
         private void btnIncrement5_Click(object sender, EventArgs e)
         {
-            currentNumeralSystem.AddDecimalValue(5);
+            currentNumeralSystem.Increment(5);
             UpdateGUI();
         }
 
         void BtnIncrement10Click(object sender, EventArgs e)
         {
-            currentNumeralSystem.AddDecimalValue(10);
+            currentNumeralSystem.Increment(10);
             UpdateGUI();
         }
 
         void BtnIncrement100Click(object sender, EventArgs e)
         {
-            currentNumeralSystem.AddDecimalValue(100);
+            currentNumeralSystem.Increment(100);
             UpdateGUI();
             int i = 100;
             i++;
@@ -109,12 +109,12 @@ namespace RadixCalculator
                 if (customAmnt > long.MaxValue)
                 {
                     customAmnt -= long.MaxValue;
-                    currentNumeralSystem.AddDecimalValue(long.MaxValue);
+                    currentNumeralSystem.Increment(long.MaxValue);
                 }
                 else
                 {
                     long addValue = (long)customAmnt;
-                    currentNumeralSystem.AddDecimalValue(addValue);
+                    currentNumeralSystem.Increment(addValue);
                     customAmnt = 0;
                 }
             }

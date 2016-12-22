@@ -89,7 +89,7 @@ namespace RadixCalculator
 			{
 				if (this.Base != -1)
 				{
-					AddDecimalValue(1);
+					Increment(1);
 				}
 			}
 
@@ -105,7 +105,7 @@ namespace RadixCalculator
 				return result;
 			}
 
-			public void AddDecimalValue(long DecimalValue)
+			public void Increment(long DecimalValue)
 			{
 				if (DecimalValue < 0)
 				{
@@ -128,7 +128,7 @@ namespace RadixCalculator
 						long remainder = newValue % Base;
 
 						Value = remainder;
-						Next.AddDecimalValue(quotient);
+						Next.Increment(quotient);
 					}
 					else if (newValue < this.Base)
 					{
