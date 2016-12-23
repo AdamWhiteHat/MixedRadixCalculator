@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Numerics;
 
 namespace RadixCalculator
 {
@@ -14,7 +15,7 @@ namespace RadixCalculator
 		{
 			public static MixedRadixSystem TimeDateRadix52()
 			{
-				List<long> SortableDate = new List<long>();
+				List<BigInteger> SortableDate = new List<BigInteger>();
 
 				SortableDate.Add(60); // Seconds in minute
 				SortableDate.Add(60); // Minutes in hour
@@ -27,7 +28,7 @@ namespace RadixCalculator
 
 			public static MixedRadixSystem TimeDateRadix365()
 			{
-				List<long> SortableDate = new List<long>();
+				List<BigInteger> SortableDate = new List<BigInteger>();
 
 				SortableDate.Add(60); // Seconds in minute
 				SortableDate.Add(60); // Minutes in hour
@@ -39,7 +40,7 @@ namespace RadixCalculator
 
 			public static MixedRadixSystem Hexadecimal()
 			{
-				Dictionary<long, string> symbolDict = new Dictionary<long, string>();
+				Dictionary<BigInteger, string> symbolDict = new Dictionary<BigInteger, string>();
 
 				symbolDict.Add(0, "0");
 				symbolDict.Add(1, "1");
@@ -63,7 +64,7 @@ namespace RadixCalculator
 
 			public static MixedRadixSystem Slashes()
 			{
-				Dictionary<long, string> symbolDict = new Dictionary<long, string>();
+				Dictionary<BigInteger, string> symbolDict = new Dictionary<BigInteger, string>();
 				
 				symbolDict.Add(0, ".");
 				symbolDict.Add(1,@"\");
@@ -77,7 +78,7 @@ namespace RadixCalculator
 
 			public static MixedRadixSystem Symbols9()
 			{
-				Dictionary<long, string> symbolDict = new Dictionary<long, string>();
+				Dictionary<BigInteger, string> symbolDict = new Dictionary<BigInteger, string>();
 
 				symbolDict.Add(0, "_");
 				symbolDict.Add(1, "-");
@@ -95,7 +96,7 @@ namespace RadixCalculator
 
 			public static MixedRadixSystem Lines()
 			{
-				Dictionary<long, string> symbolDict = new Dictionary<long, string>();
+				Dictionary<BigInteger, string> symbolDict = new Dictionary<BigInteger, string>();
 
 				int counter = -1;
 				symbolDict.Add(++counter, " ");
@@ -110,10 +111,10 @@ namespace RadixCalculator
 
 			public static MixedRadixSystem Alien()
 			{
-				Dictionary<long, string> symbolDict5 = new Dictionary<long, string>();
-				Dictionary<long, string> symbolDict4 = new Dictionary<long, string>();
-				Dictionary<long, string> symbolDict3dots = new Dictionary<long, string>();
-				Dictionary<long, string> symbolDict3slashes = new Dictionary<long, string>();
+				Dictionary<BigInteger, string> symbolDict5 = new Dictionary<BigInteger, string>();
+				Dictionary<BigInteger, string> symbolDict4 = new Dictionary<BigInteger, string>();
+				Dictionary<BigInteger, string> symbolDict3dots = new Dictionary<BigInteger, string>();
+				Dictionary<BigInteger, string> symbolDict3slashes = new Dictionary<BigInteger, string>();
 
 				int counter = 0;
 				symbolDict4.Add(counter++, " ");
@@ -142,7 +143,7 @@ namespace RadixCalculator
 				symbolDict5.Add(counter++, "E");
 				symbolDict5.Add(counter++, "8");
 
-				List<Dictionary<long, string>> symbolDictionaryList = new List<Dictionary<long, string>>();
+				List<Dictionary<BigInteger, string>> symbolDictionaryList = new List<Dictionary<BigInteger, string>>();
 				symbolDictionaryList.Add(symbolDict5);
 				symbolDictionaryList.Add(symbolDict3dots);
 				symbolDictionaryList.Add(symbolDict4);
@@ -151,7 +152,7 @@ namespace RadixCalculator
 				symbolDictionaryList.Add(symbolDict3slashes);
 				symbolDictionaryList.Add(symbolDict3slashes);
 
-				List<long> radixDefinition = new List<long>();
+				List<BigInteger> radixDefinition = new List<BigInteger>();
 				radixDefinition.Add(5);
 				radixDefinition.Add(3);
 				radixDefinition.Add(4);

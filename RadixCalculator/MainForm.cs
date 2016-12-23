@@ -103,21 +103,23 @@ namespace RadixCalculator
             if (string.IsNullOrWhiteSpace(tbIncrementAmmount.Text))
             { return; }
 
-            BigInteger customAmnt = BigInteger.Parse(tbIncrementAmmount.Text);
-            while (customAmnt > 0)
-            {
-                if (customAmnt > long.MaxValue)
-                {
-                    customAmnt -= long.MaxValue;
-                    currentNumeralSystem.Increment(long.MaxValue);
-                }
-                else
-                {
-                    long addValue = (long)customAmnt;
-                    currentNumeralSystem.Increment(addValue);
-                    customAmnt = 0;
-                }
-            }
+            currentNumeralSystem.Increment(BigInteger.Parse(tbIncrementAmmount.Text));
+
+            //BigInteger customAmnt = BigInteger.Parse(tbIncrementAmmount.Text);
+            //while (customAmnt > 0)
+            //{
+            //    if (customAmnt > long.MaxValue)
+            //    {
+            //        customAmnt -= long.MaxValue;
+            //        currentNumeralSystem.Increment(long.MaxValue);
+            //    }
+            //    else
+            //    {
+            //        long addValue = (long)customAmnt;
+            //        currentNumeralSystem.Increment(addValue);
+            //        customAmnt = 0;
+            //    }
+            //}
 
             UpdateGUI();
         }
@@ -195,12 +197,12 @@ namespace RadixCalculator
             UpdateGUI();
         }
 
-        List<long> customRadixSystem = new List<long>();
+        List<BigInteger> customRadixSystem = new List<BigInteger>();
 
         private void btnCustomAdd_Click(object sender, EventArgs e)
         {
-            long digit = 0;
-            if (long.TryParse(tbCustomDigit.Text, out digit))
+            BigInteger digit = 0;
+            if (BigInteger.TryParse(tbCustomDigit.Text, out digit))
             {
                 customRadixSystem.Add(digit);
                 tbCustomDigit.Text = string.Empty;
@@ -252,7 +254,7 @@ namespace RadixCalculator
 
         private void clearCustom()
         {
-            customRadixSystem = new List<long>();
+            customRadixSystem = new List<BigInteger>();
             tbCustomDigit.Text = string.Empty;
             lblCustomDisplay.Text = string.Empty;
             UpdateGUI();

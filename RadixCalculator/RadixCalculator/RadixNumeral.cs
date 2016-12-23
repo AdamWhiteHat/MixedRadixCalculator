@@ -2,235 +2,252 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Numerics;
 
 namespace RadixCalculator
 {
-	public partial class MixedRadixSystem
-	{
-		public class RadixNumeral
-		{
-			#region Members
-			
-			// YAGNI
-			//public string Name { get; private set; }
-			//public long MinValue { get { return 0; } }
-			//public long MaxValue { get { return Base; } }
+    public partial class MixedRadixSystem
+    {
+        public class RadixNumeral
+        {
+            #region Members
 
-			public long Base { get; private set; }
-			public long Value { get; private set; }
-			private Dictionary<long, string> SymbolDictionary { get; set; }
-			public string SymbolicValue
-			{
-				get	{	if (SymbolDictionary.Count == 0) { return Value.ToString(); }
-						else { return SymbolDictionary[Value]; }
-					}
-			}
+            // YAGNI
+            //public string Name { get; private set; }
+            //public BigInteger MinValue { get { return 0; } }
+            //public BigInteger MaxValue { get { return Base; } }
 
-			public RadixNumeral Next
-			{
-				get	{	if (_moreSignifigantNumeral == null) { return RadixNumeral.Empty; }
-						else { return _moreSignifigantNumeral; }
-					}
-				set	{	if (_moreSignifigantNumeral == null) { _moreSignifigantNumeral = value == null ? RadixNumeral.Empty : value; }
-						else { throw new FieldAccessException("Value may only be set once."); }
-					}
-			}
-			private RadixNumeral _moreSignifigantNumeral = null;
-			
-			public RadixNumeral Previous
-			{
-				get	{	if (_lessSignifigantNumeral == null) { return RadixNumeral.Empty; }
-						else { return _lessSignifigantNumeral; }
-					}
-				set	{	if (_lessSignifigantNumeral == null) { _lessSignifigantNumeral = value == null ? RadixNumeral.Empty : value; }
-						else { throw new FieldAccessException("Value may only be set once."); }
-					}
-			}
-			private RadixNumeral _lessSignifigantNumeral = null;
+            public BigInteger Base { get; private set; }
+            public BigInteger Value { get; private set; }
+            private Dictionary<BigInteger, string> SymbolDictionary { get; set; }
+            public string SymbolicValue
+            {
+                get
+                {
+                    if (SymbolDictionary.Count == 0) { return Value.ToString(); }
+                    else { return SymbolDictionary[Value]; }
+                }
+            }
 
-			#endregion // Members
-			
+            public RadixNumeral Next
+            {
+                get
+                {
+                    if (_moreSignifigantNumeral == null) { return RadixNumeral.Empty; }
+                    else { return _moreSignifigantNumeral; }
+                }
+                set
+                {
+                    if (_moreSignifigantNumeral == null) { _moreSignifigantNumeral = value == null ? RadixNumeral.Empty : value; }
+                    else { throw new FieldAccessException("Value may only be set once."); }
+                }
+            }
+            private RadixNumeral _moreSignifigantNumeral = null;
 
+            public RadixNumeral Previous
+            {
+                get
+                {
+                    if (_lessSignifigantNumeral == null) { return RadixNumeral.Empty; }
+                    else { return _lessSignifigantNumeral; }
+                }
+                set
+                {
+                    if (_lessSignifigantNumeral == null) { _lessSignifigantNumeral = value == null ? RadixNumeral.Empty : value; }
+                    else { throw new FieldAccessException("Value may only be set once."); }
+                }
+            }
+            private RadixNumeral _lessSignifigantNumeral = null;
 
-			#region Constructors
-
-			public static readonly RadixNumeral Empty = new RadixNumeral(-1);
-
-			public RadixNumeral()
-			{
-				SymbolDictionary = new Dictionary<long, string>();
-			}
-
-			public RadixNumeral(long RadixBase)
-				: this()
-			{
-				this.Base = RadixBase;
-			}
-
-			public RadixNumeral(long RadixBase, Dictionary<long, string> symbolDictionary)
-				: this()
-			{
-				this.Base = RadixBase;
-				this.SymbolDictionary = symbolDictionary;
-			}
-
-			#endregion // Constructors
+            #endregion // Members
 
 
 
-			#region Methods
+            #region Constructors
 
-			public void Zero()
-			{
-				Value = 0;
-			}
+            public static readonly RadixNumeral Empty = new RadixNumeral(-1);
 
-			public void Increment()
-			{
-				if (this.Base != -1)
-				{
-					Increment(1);
-				}
-			}
+            public RadixNumeral()
+            {
+                SymbolDictionary = new Dictionary<BigInteger, string>();
+            }
 
-			public static Dictionary<long,string> GenerateSymbolDictionary(long RadixBase)				
-			{
-				long counter = 0;
-				Dictionary<long, string> result = new Dictionary<long, string>();				
-				while (counter < RadixBase)
-				{
-					result.Add(counter, counter.ToString());
-					counter++;
-				}
-				return result;
-			}
+            public RadixNumeral(BigInteger RadixBase)
+                : this()
+            {
+                this.Base = RadixBase;
+            }
 
-			public void Increment(long DecimalValue)
-			{
-				if (DecimalValue < 0)
-				{
-					throw new ArgumentOutOfRangeException("DecimalValue", "Value must be a positive number.");
-				}
-				else if (DecimalValue == 0)
-				{
-					return;
-				}
-				else
-				{
-					long newValue = (Value + DecimalValue);
-					if (newValue >= this.Base)
-					{
-						if (Next == RadixNumeral.Empty)
-						{
-							throw new OverflowException("The value has exceeded what can be expressed with number system. The AddValue procedure may have been partially completed and therefore the state may be corrupt (The Value may not correctly reflect the result of the previous operation). It is recommended that the application be restarted.");
-						}
-						long quotient = newValue / Base;
-						long remainder = newValue % Base;
+            public RadixNumeral(BigInteger RadixBase, Dictionary<BigInteger, string> symbolDictionary)
+                : this()
+            {
+                this.Base = RadixBase;
+                this.SymbolDictionary = symbolDictionary;
+            }
 
-						Value = remainder;
-						Next.Increment(quotient);
-					}
-					else if (newValue < this.Base)
-					{
-						Value = newValue;
-					}
-				}
-			}
-
-			#endregion // Methods
+            #endregion // Constructors
 
 
 
-			#region Conversions
+            #region Methods
 
-			public static bool operator <(RadixNumeral a, RadixNumeral b)
-			{
-				if (a.Base != b.Base) { throw new ArithmeticException("The RadixNumeral on both sides of the comparison operator must have the same Base."); }
-				return a.Value < b.Value;
-			}
+            public void Zero()
+            {
+                Value = 0;
+            }
 
-			public static bool operator >(RadixNumeral a, RadixNumeral b)
-			{
-				if (a.Base != b.Base) { throw new ArithmeticException("The RadixNumeral on both sides of the comparison operator must have the same Base."); }
-				return a.Value > b.Value;
-			}
+            public void Increment()
+            {
+                if (this.Base != -1)
+                {
+                    Increment(1);
+                }
+            }
 
-			public static bool operator ==(RadixNumeral a, RadixNumeral b)
-			{
+            public static Dictionary<BigInteger, string> GenerateSymbolDictionary(BigInteger RadixBase)
+            {
+                BigInteger counter = 0;
+                Dictionary<BigInteger, string> result = new Dictionary<BigInteger, string>();
+                while (counter < RadixBase)
+                {
+                    result.Add(counter, counter.ToString());
+                    counter++;
+                }
+                return result;
+            }
 
-				if (RadixNumeral.ReferenceEquals(a, null))
-				{
-					return RadixNumeral.ReferenceEquals(b, null);
-				}
+            public void Increment(BigInteger DecimalValue)
+            {
+                if (DecimalValue < 0)
+                {
+                    throw new ArgumentOutOfRangeException("DecimalValue", "Value must be a positive number.");
+                }
+                else if (DecimalValue == 0)
+                {
+                    return;
+                }
+                else
+                {
+                    BigInteger newValue = (Value + DecimalValue);
+                    if (newValue >= this.Base)
+                    {
+                        if (Next == RadixNumeral.Empty)
+                        {
+                            throw new OverflowException("The value has exceeded what can be expressed with number system. The AddValue procedure may have been partially completed and therefore the state may be corrupt (The Value may not correctly reflect the result of the previous operation). It is recommended that the application be restarted.");
+                        }
 
-				return a.Equals(b);
-			}
+                        BigInteger remainder = new BigInteger();
 
-			public static bool operator !=(RadixNumeral a, RadixNumeral b)
-			{
-				return !(a == b);
-			}
+                        BigInteger quotient = BigInteger.DivRem(newValue, Base, out remainder);
 
-			#endregion // Conversions
+                        Value = remainder;
+                        Next.Increment(quotient);
+                    }
+                    else if (newValue < this.Base)
+                    {
+                        Value = newValue;
+                    }
+                }
+            }
+
+            #endregion // Methods
 
 
 
-			#region Overrides
+            #region Conversions
 
-			public override string ToString()
-			{
-				return string.Format("{0}[{1}]", Value.ToString().PadLeft(Base.ToString().Length), this.Base);
-			}
+            public static bool operator <(RadixNumeral a, RadixNumeral b)
+            {
+                if (a.Base != b.Base) { throw new ArithmeticException("The RadixNumeral on both sides of the comparison operator must have the same Base."); }
+                return a.Value < b.Value;
+            }
 
-			public override bool Equals(object obj)
-			{
-				if (obj == null)
-				{
-					return false;
-				}
-				else if (object.ReferenceEquals(this, obj))
-				{
-					return true;
-				}
-				else if (obj is RadixNumeral)
-				{
-					RadixNumeral radNum = (RadixNumeral)obj;
-					return (
-								this.Base == radNum.Base
-								&&
-								this.Value == radNum.Base
-								&&
-								RadixNumeral.GetHashString(this) == RadixNumeral.GetHashString(radNum)
-							);
-				}
-				else
-				{
-					return false;
-				}
-			}
+            public static bool operator >(RadixNumeral a, RadixNumeral b)
+            {
+                if (a.Base != b.Base) { throw new ArithmeticException("The RadixNumeral on both sides of the comparison operator must have the same Base."); }
+                return a.Value > b.Value;
+            }
 
-			private static string GetHashString(RadixNumeral radNum)
-			{
-				//int counter = 0;
-				//string symbolString = "{EMPTY}";
-				//if (radNum.SymbolDictionary.Count > 0)
-				//{
-				//	symbolString = string.Join(",", radNum.SymbolDictionary.Values.Select(v => string.Format("{0}:{1}", counter++, v)));
-				//}
-				string result = string.Format("{0}[{1}]:{2}", radNum.Value, radNum.Base, radNum.SymbolicValue);//, symbolString, radNum.SymbolDictionary.Count);
-				return result;
-			}
+            public static bool operator ==(RadixNumeral a, RadixNumeral b)
+            {
 
-			public override int GetHashCode()
-			{
-				unchecked
-				{
-					long hash = this.Value ^ this.Base ^ RadixNumeral.GetHashString(this).GetHashCode();
-					return (int)hash;
-				}
-			}
+                if (RadixNumeral.ReferenceEquals(a, null))
+                {
+                    return RadixNumeral.ReferenceEquals(b, null);
+                }
 
-			#endregion // Overrides
-		}
-	}
+                return a.Equals(b);
+            }
+
+            public static bool operator !=(RadixNumeral a, RadixNumeral b)
+            {
+                return !(a == b);
+            }
+
+            #endregion // Conversions
+
+
+
+            #region Overrides
+
+            public override string ToString()
+            {
+                return string.Format("{0}[{1}]", Value.ToString().PadLeft(Base.ToString().Length), this.Base);
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null)
+                {
+                    return false;
+                }
+                else if (object.ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+                else if (obj is RadixNumeral)
+                {
+                    RadixNumeral radNum = (RadixNumeral)obj;
+                    return (
+                                this.Base == radNum.Base
+                                &&
+                                this.Value == radNum.Base
+                                &&
+                                RadixNumeral.GetHashString(this) == RadixNumeral.GetHashString(radNum)
+                            );
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            private static string GetHashString(RadixNumeral radNum)
+            {
+                //int counter = 0;
+                //string symbolString = "{EMPTY}";
+                //if (radNum.SymbolDictionary.Count > 0)
+                //{
+                //	symbolString = string.Join(",", radNum.SymbolDictionary.Values.Select(v => string.Format("{0}:{1}", counter++, v)));
+                //}
+                string result = string.Format("{0}[{1}]:{2}", radNum.Value, radNum.Base, radNum.SymbolicValue);//, symbolString, radNum.SymbolDictionary.Count);
+                return result;
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    BigInteger hash = this.Value ^ this.Base ^ RadixNumeral.GetHashString(this).GetHashCode();
+                    if (hash > int.MaxValue)
+                    {
+                        hash = hash % int.MaxValue;
+                    }
+                    return (int)hash;
+                }
+            }
+
+            #endregion // Overrides
+        }
+    }
 }
