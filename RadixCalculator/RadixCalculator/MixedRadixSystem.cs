@@ -55,7 +55,7 @@ namespace RadixCalculator
 
         #endregion
 
-        #region Constructors
+        #region Constructors / Factory
 
         public MixedRadixSystem(int Base, int Precision)
             : this(Enumerable.Repeat<BigInteger>(Base, Precision).ToList())
@@ -231,6 +231,13 @@ namespace RadixCalculator
             //while (Value-- > 0) { Increment(); }
         }
 
+        #region String / Formatting
+
+        public override string ToString()
+        {
+            return GetNumeralFormat();
+        }
+
         public string GetTabularFormat()
         {
             int counter = 0;
@@ -244,14 +251,29 @@ namespace RadixCalculator
             return formatArrayString(digitCollection, " ");
         }
 
-        public override string ToString()
+        public string GetPolynomialFormat()
         {
-            return GetNumeralFormat();
+            RadixNumeral current = Digits.Last();
+
+            List<string> coefficients = new List<string>();
+
+            int counter = Digits.Count;
+            while (current.Base != -1)
+            {
+                coefficients.Add($"{current.Value}*{current.Base}^{counter}");
+                counter--;
+                current = current.Previous;
+            }
+
+            return string.Join(" + ", coefficients);
         }
 
         private string formatArrayString<T>(IEnumerable<T> array, string separator)
         {
             return string.Join<T>(separator, LeftToRight ? array : array.Reverse());
         }
+
+        #endregion
+
     }
 }

@@ -133,6 +133,8 @@ namespace RadixCalculator
                     {
                         if (Next == RadixNumeral.Empty)
                         {
+                            //Digits.Add(new RadixNumeral(this.Base));
+
                             throw new OverflowException("The value has exceeded what can be expressed with number system. The AddValue procedure may have been partially completed and therefore the state may be corrupt (The Value may not correctly reflect the result of the previous operation). It is recommended that the application be restarted.");
                         }
 

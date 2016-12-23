@@ -31,6 +31,14 @@ namespace RadixCalculator
         {
             InitializeComponent();
             Initialize();
+            this.button8.Click += new System.EventHandler((o, e) => { currentNumeralSystem.Digits[7].Increment(); UpdateGUI(); });
+            this.button7.Click += new System.EventHandler((o, e) => { currentNumeralSystem.Digits[6].Increment(); UpdateGUI(); });
+            this.button6.Click += new System.EventHandler((o, e) => { currentNumeralSystem.Digits[5].Increment(); UpdateGUI(); });
+            this.button5.Click += new System.EventHandler((o, e) => { currentNumeralSystem.Digits[4].Increment(); UpdateGUI(); });
+            this.button4.Click += new System.EventHandler((o, e) => { currentNumeralSystem.Digits[3].Increment(); UpdateGUI(); });
+            this.button3.Click += new System.EventHandler((o, e) => { currentNumeralSystem.Digits[2].Increment(); UpdateGUI(); });
+            this.button2.Click += new System.EventHandler((o, e) => { currentNumeralSystem.Digits[1].Increment(); UpdateGUI(); });
+            this.button1.Click += new System.EventHandler((o, e) => { currentNumeralSystem.Digits[0].Increment(); UpdateGUI(); });
             UpdateGUI();
         }
 
@@ -64,11 +72,18 @@ namespace RadixCalculator
             panelRadixChoose.BringToFront();
         }
 
-        void UpdateGUI()
+        void UpdateGUI()            
         {
-            tbTabularFormat.Text = currentNumeralSystem.GetTabularFormat();
-            tbNumeralFormat.Text = currentNumeralSystem.GetNumeralFormat();
-            tbDecimalValue.Text = string.Format("{0:n0}", currentNumeralSystem.DecimalValue);
+            if (tbDecimalValue.InvokeRequired)
+            {
+                tbDecimalValue.Invoke(new MethodInvoker(() => { UpdateGUI(); }));
+            }
+            else
+            {
+                tbTabularFormat.Text = currentNumeralSystem.GetTabularFormat();
+                tbNumeralFormat.Text = currentNumeralSystem.GetPolynomialFormat(); // currentNumeralSystem.GetNumeralFormat();
+                tbDecimalValue.Text = string.Format("{0:n0}", currentNumeralSystem.DecimalValue);
+            }
         }
 
         void BtnIncrementClick(object sender, EventArgs e)
@@ -102,25 +117,9 @@ namespace RadixCalculator
         {
             if (string.IsNullOrWhiteSpace(tbIncrementAmmount.Text))
             { return; }
-
+            
             currentNumeralSystem.Increment(BigInteger.Parse(tbIncrementAmmount.Text));
-
-            //BigInteger customAmnt = BigInteger.Parse(tbIncrementAmmount.Text);
-            //while (customAmnt > 0)
-            //{
-            //    if (customAmnt > long.MaxValue)
-            //    {
-            //        customAmnt -= long.MaxValue;
-            //        currentNumeralSystem.Increment(long.MaxValue);
-            //    }
-            //    else
-            //    {
-            //        long addValue = (long)customAmnt;
-            //        currentNumeralSystem.Increment(addValue);
-            //        customAmnt = 0;
-            //    }
-            //}
-
+            
             UpdateGUI();
         }
 
@@ -259,6 +258,5 @@ namespace RadixCalculator
             lblCustomDisplay.Text = string.Empty;
             UpdateGUI();
         }
-
     }
 }
