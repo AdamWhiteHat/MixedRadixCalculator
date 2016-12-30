@@ -166,11 +166,11 @@ namespace RadixCalculator
                 {
                     if (symbolDictionaryList == null)
                     {
-                        radNew = new RadixNumeral(radixBase);
+                        radNew = new RadixNumeral(radixBase, index);
                     }
                     else
                     {
-                        radNew = new RadixNumeral(radixBase, symbolDictionaryList[index]);
+                        radNew = new RadixNumeral(radixBase, index, symbolDictionaryList[index]);
                     }
 
                     if (rLast == RadixNumeral.Empty)
@@ -257,7 +257,7 @@ namespace RadixCalculator
 
             List<string> coefficients = new List<string>();
 
-            int counter = Digits.Count;
+            int counter = Digits.Count-1;
             while (current.Base != -1)
             {
                 coefficients.Add($"{current.Value}*{current.Base}^{counter}");

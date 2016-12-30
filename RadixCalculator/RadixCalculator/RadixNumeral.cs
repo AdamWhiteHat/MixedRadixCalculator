@@ -19,6 +19,7 @@ namespace RadixCalculator
 
             public BigInteger Base { get; private set; }
             public BigInteger Value { get; private set; }
+            public BigInteger Exponent { get; private set; }
             private Dictionary<BigInteger, string> SymbolDictionary { get; set; }
             public string SymbolicValue
             {
@@ -65,23 +66,18 @@ namespace RadixCalculator
 
             #region Constructors
 
-            public static readonly RadixNumeral Empty = new RadixNumeral(-1);
+            public static readonly RadixNumeral Empty = new RadixNumeral(-1, -1);
 
-            public RadixNumeral()
+            public RadixNumeral(BigInteger RadixBase, BigInteger PlaceValue)
             {
                 SymbolDictionary = new Dictionary<BigInteger, string>();
-            }
-
-            public RadixNumeral(BigInteger RadixBase)
-                : this()
-            {
+                this.Exponent = PlaceValue;
                 this.Base = RadixBase;
             }
 
-            public RadixNumeral(BigInteger RadixBase, Dictionary<BigInteger, string> symbolDictionary)
-                : this()
+            public RadixNumeral(BigInteger RadixBase, BigInteger PlaceValue, Dictionary<BigInteger, string> symbolDictionary)
+                : this(RadixBase, PlaceValue)
             {
-                this.Base = RadixBase;
                 this.SymbolDictionary = symbolDictionary;
             }
 
