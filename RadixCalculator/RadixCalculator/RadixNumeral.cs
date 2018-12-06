@@ -19,6 +19,7 @@ namespace RadixCalculator
 
             public BigInteger Base { get; private set; }
             public BigInteger Value { get; private set; }
+            public BigInteger Exponent { get; private set; }
             private Dictionary<BigInteger, string> SymbolDictionary { get; set; }
             public string SymbolicValue
             {
@@ -65,23 +66,18 @@ namespace RadixCalculator
 
             #region Constructors
 
-            public static readonly RadixNumeral Empty = new RadixNumeral(-1);
+            public static readonly RadixNumeral Empty = new RadixNumeral(-1, -1);
 
-            public RadixNumeral()
+            public RadixNumeral(BigInteger RadixBase, BigInteger PlaceValue)
             {
                 SymbolDictionary = new Dictionary<BigInteger, string>();
-            }
-
-            public RadixNumeral(BigInteger RadixBase)
-                : this()
-            {
+                this.Exponent = PlaceValue;
                 this.Base = RadixBase;
             }
 
-            public RadixNumeral(BigInteger RadixBase, Dictionary<BigInteger, string> symbolDictionary)
-                : this()
+            public RadixNumeral(BigInteger RadixBase, BigInteger PlaceValue, Dictionary<BigInteger, string> symbolDictionary)
+                : this(RadixBase, PlaceValue)
             {
-                this.Base = RadixBase;
                 this.SymbolDictionary = symbolDictionary;
             }
 
@@ -133,10 +129,11 @@ namespace RadixCalculator
                     {
                         if (Next == RadixNumeral.Empty)
                         {
-                            //Digits.Add(new RadixNumeral(this.Base));
-
-                            throw new OverflowException("The value has exceeded what can be expressed with number system. The AddValue procedure may have been partially completed and therefore the state may be corrupt (The Value may not correctly reflect the result of the previous operation). It is recommended that the application be restarted.");
-                        }
+							//Digits.Add(new RadixNumeral(this.Base));
+							//throw new OverflowException("The value has exceeded what can be expressed with number system. The AddValue procedure may have been partially completed and therefore the state may be corrupt (The Value may not correctly reflect the result of the previous operation). It is recommended that the application be restarted.");
+							Value = newValue;
+							return;
+						}
 
                         BigInteger remainder = new BigInteger();
 
