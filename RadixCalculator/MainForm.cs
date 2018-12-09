@@ -39,7 +39,7 @@ namespace RadixCalculator
 			this.button3.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[2].Increment(); UpdateGUI(); });
 			this.button2.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[1].Increment(); UpdateGUI(); });
 			this.button1.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[0].Increment(); UpdateGUI(); });
-			UpdateGUI();			
+			UpdateGUI();
 		}
 
 		void Initialize()
@@ -259,20 +259,26 @@ namespace RadixCalculator
 		private void customAddDigit()
 		{
 			BigInteger digit = 0;
-			if (BigInteger.TryParse(tbCustomDigit.Text, out digit))
+			if (!BigInteger.TryParse(tbCustomDigit.Text, out digit))
 			{
-				customRadixSystem.Add(digit);
-				tbCustomDigit.Text = string.Empty;
-
-				if (lblCustomDisplay.Text.Length > 0)
-				{
-					lblCustomDisplay.Text += MixedRadixSystem.BaseStringSeparator;
-				}
-
-				lblCustomDisplay.Text += digit.ToString();
-
+				
+				MessageBox.Show("Unable to parse text into type BigInteger. You must enter a natural number (whole, positive integers).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				tbCustomDigit.Focus();
+				tbCustomDigit.SelectAll();
+				return;
 			}
+
+			customRadixSystem.Add(digit);
+			tbCustomDigit.Text = string.Empty;
+
+			if (lblCustomDisplay.Text.Length > 0)
+			{
+				lblCustomDisplay.Text += MixedRadixSystem.BaseStringSeparator;
+			}
+
+			lblCustomDisplay.Text += digit.ToString();
+
+			tbCustomDigit.Focus();
 		}
 
 		private void tbIncrementAmmount_KeyDown(object sender, KeyEventArgs e)
@@ -304,6 +310,19 @@ namespace RadixCalculator
 
 				e.Handled = true;
 				e.SuppressKeyPress = true;
+			}
+		}
+
+		private void tbCustomDigit_TextChanged(object sender, EventArgs e)
+		{
+			BigInteger digit = 0;
+			if (!BigInteger.TryParse(tbCustomDigit.Text, out digit))
+			{
+				errorProvider_CustomDigit.SetError(tbCustomDigit, "Only natural numbers allowed.");
+			}
+			else
+			{
+				errorProvider_CustomDigit.Clear();
 			}
 		}
 	}
