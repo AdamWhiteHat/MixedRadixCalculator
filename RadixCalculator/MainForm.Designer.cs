@@ -79,11 +79,13 @@ namespace RadixCalculator
 			this.btnCreate = new System.Windows.Forms.Button();
 			this.btnLoad = new System.Windows.Forms.Button();
 			this.listNumberSystems = new System.Windows.Forms.ListBox();
+			this.errorProvider_CustomDigit = new System.Windows.Forms.ErrorProvider(this.components);
 			this.groupBox1.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.panelRadixUse.SuspendLayout();
 			this.panelRadixChoose.SuspendLayout();
 			this.panelCustom.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider_CustomDigit)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tbTabularFormat
@@ -441,8 +443,9 @@ namespace RadixCalculator
 			this.tbCustomDigit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.tbCustomDigit.Location = new System.Drawing.Point(6, 26);
 			this.tbCustomDigit.Name = "tbCustomDigit";
-			this.tbCustomDigit.Size = new System.Drawing.Size(362, 20);
+			this.tbCustomDigit.Size = new System.Drawing.Size(347, 20);
 			this.tbCustomDigit.TabIndex = 4;
+			this.tbCustomDigit.TextChanged += new System.EventHandler(this.tbCustomDigit_TextChanged);
 			this.tbCustomDigit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbCustomDigit_KeyDown);
 			// 
 			// btnCustomSave
@@ -503,6 +506,11 @@ namespace RadixCalculator
 			this.listNumberSystems.Size = new System.Drawing.Size(207, 147);
 			this.listNumberSystems.TabIndex = 0;
 			// 
+			// errorProvider_CustomDigit
+			// 
+			this.errorProvider_CustomDigit.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+			this.errorProvider_CustomDigit.ContainerControl = this;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -523,6 +531,7 @@ namespace RadixCalculator
 			this.panelRadixChoose.ResumeLayout(false);
 			this.panelCustom.ResumeLayout(false);
 			this.panelCustom.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider_CustomDigit)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -563,5 +572,6 @@ namespace RadixCalculator
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
-    }
+		private System.Windows.Forms.ErrorProvider errorProvider_CustomDigit;
+	}
 }
