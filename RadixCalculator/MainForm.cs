@@ -259,7 +259,7 @@ namespace RadixCalculator
 		private void customAddDigit()
 		{
 			BigInteger digit = 0;
-			if (!BigInteger.TryParse(tbCustomDigit.Text, out digit))
+			if (!BigInteger.TryParse(tbCustomDigit.Text, out digit) || digit.Sign != 1)
 			{
 				
 				MessageBox.Show("Unable to parse text into type BigInteger. You must enter a natural number (whole, positive integers).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
