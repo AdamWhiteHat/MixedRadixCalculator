@@ -31,14 +31,14 @@ namespace RadixCalculator
 		{
 			InitializeComponent();
 			Initialize();
-			this.button8.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[7].Increment(); UpdateGUI(); });
-			this.button7.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[6].Increment(); UpdateGUI(); });
-			this.button6.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[5].Increment(); UpdateGUI(); });
-			this.button5.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[4].Increment(); UpdateGUI(); });
-			this.button4.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[3].Increment(); UpdateGUI(); });
-			this.button3.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[2].Increment(); UpdateGUI(); });
-			this.button2.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[1].Increment(); UpdateGUI(); });
-			this.button1.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[0].Increment(); UpdateGUI(); });
+			this.button8.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[8].Increment(); UpdateGUI(); });
+			this.button7.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[7].Increment(); UpdateGUI(); });
+			this.button6.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[6].Increment(); UpdateGUI(); });
+			this.button5.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[5].Increment(); UpdateGUI(); });
+			this.button4.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[4].Increment(); UpdateGUI(); });
+			this.button3.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[3].Increment(); UpdateGUI(); });
+			this.button2.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[2].Increment(); UpdateGUI(); });
+			this.button1.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[1].Increment(); UpdateGUI(); });
 			UpdateGUI();
 		}
 
@@ -261,7 +261,7 @@ namespace RadixCalculator
 			BigInteger digit = 0;
 			if (!BigInteger.TryParse(tbCustomDigit.Text, out digit) || digit.Sign != 1)
 			{
-				
+
 				MessageBox.Show("Unable to parse text into type BigInteger. You must enter a natural number (whole, positive integers).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				tbCustomDigit.Focus();
 				tbCustomDigit.SelectAll();
@@ -315,10 +315,17 @@ namespace RadixCalculator
 
 		private void tbCustomDigit_TextChanged(object sender, EventArgs e)
 		{
-			BigInteger digit = 0;
-			if (!BigInteger.TryParse(tbCustomDigit.Text, out digit))
+			if (!string.IsNullOrWhiteSpace(tbCustomDigit.Text))
 			{
-				errorProvider_CustomDigit.SetError(tbCustomDigit, "Only natural numbers allowed.");
+				BigInteger digit = 0;
+				if (!BigInteger.TryParse(tbCustomDigit.Text, out digit))
+				{
+					errorProvider_CustomDigit.SetError(tbCustomDigit, "Only natural numbers allowed.");
+				}
+				else
+				{
+					errorProvider_CustomDigit.Clear();
+				}
 			}
 			else
 			{
