@@ -1,8 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ *
+ * Developed by Adam White 
+ *  http://csharpcodewhisperer.blogspot.com
+ * 
+ */
+using System;
 using System.Linq;
-using System.Text;
 using System.Numerics;
+using System.Collections.Generic;
 
 namespace RadixCalculator
 {
@@ -49,10 +54,10 @@ namespace RadixCalculator
 			private RadixNumeral _lessSignifigantNumeral = null;
 
 			#endregion // Members
-			
+
 			#region Constructors
 
-			public static readonly RadixNumeral Empty = new RadixNumeral(-1, -1);
+			public static readonly RadixNumeral Empty = new RadixNumeral(BigInteger.MinusOne, BigInteger.MinusOne);
 
 			public RadixNumeral(BigInteger RadixBase, BigInteger PlaceValue)
 			{
@@ -68,7 +73,7 @@ namespace RadixCalculator
 			}
 
 			#endregion // Constructors
-			
+
 			#region Methods
 
 			public void Zero()
@@ -78,10 +83,10 @@ namespace RadixCalculator
 
 			public void Increment()
 			{
-				if (this.Base != -1)
-				{
-					Increment(1);
-				}
+				//if (this.Base != -1)
+				//{
+				Increment(1);
+				//}
 			}
 
 			public static Dictionary<BigInteger, string> GenerateSymbolDictionary(BigInteger RadixBase)
@@ -98,18 +103,19 @@ namespace RadixCalculator
 
 			public void Increment(BigInteger DecimalValue)
 			{
-				if (DecimalValue < 0)
-				{
-					throw new ArgumentOutOfRangeException("DecimalValue", "Value must be a positive number.");
-				}
-				else if (DecimalValue == 0)
+				//if (DecimalValue < 0)
+				//{
+				//	throw new ArgumentOutOfRangeException("DecimalValue", "Value must be a positive number.");
+				//}
+				//else 
+				if (DecimalValue == 0)
 				{
 					return;
 				}
 				else
 				{
 					BigInteger newValue = (Value + DecimalValue);
-					if (newValue >= this.Base)
+					if (BigInteger.Abs(newValue) >= BigInteger.Abs(this.Base))
 					{
 						if (Next == RadixNumeral.Empty)
 						{
@@ -126,7 +132,7 @@ namespace RadixCalculator
 						Value = remainder;
 						Next.Increment(quotient);
 					}
-					else if (newValue < this.Base)
+					else if (BigInteger.Abs(newValue) < BigInteger.Abs(this.Base))
 					{
 						Value = newValue;
 					}
@@ -134,7 +140,7 @@ namespace RadixCalculator
 			}
 
 			#endregion // Methods
-			
+
 			#region Comparison Operators
 
 			public static bool operator <(RadixNumeral a, RadixNumeral b)
@@ -166,7 +172,7 @@ namespace RadixCalculator
 			}
 
 			#endregion // Comparison Operators
-			
+
 			#region Overrides
 
 			public override string ToString()
