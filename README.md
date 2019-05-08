@@ -3,7 +3,7 @@
 
 
 
-![Screenshot](https://github.com/AdamRakaska/MixedRadixCalculator/blob/master/MixedRadixCalculator.PNG)
+![Screenshot](https://github.com/AdamWhiteHat/MixedRadixCalculator/blob/master/MixedRadixCalculator.PNG)
 
   A numeral system (or system of numeration) is a writing system for expressing numbers. 
 
@@ -25,7 +25,7 @@ Uses:
   A mixed radix numeral system can represent a polynomial, and possibly provide for a simpler way to visualize and reason about them.
 
   Yet another possible use is to make a numeral system with a base that is larger than and co-prime to some other target number (say 256) to make a bijective map from every value in a byte to some other value exactly once by repeatedly adding the value of the co-prime, modulus 256. This can appear rather random (or sometimes not at all) but the mapping is easily determined given the co-prime. I have talked about this notion before on my blog
-  http://www.csharpprogramming.tips/search/label/Coprime
+  https://csharpcodewhisperer.blogspot.com/search/label/Coprime
 
 If you like this project you would probably like my project EquationFinder, it finds equations given constraints 
-https://github.com/AdamRakaska/EquationFinder
+https://github.com/AdamWhiteHat/EquationFinder

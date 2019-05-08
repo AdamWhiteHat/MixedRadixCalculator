@@ -1,8 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ *
+ * Developed by Adam White 
+ *  http://csharpcodewhisperer.blogspot.com
+ * 
+ */
+using System;
 using System.Linq;
-using System.Text;
 using System.Numerics;
+using System.Collections.Generic;
 
 namespace RadixCalculator
 {
@@ -65,14 +70,14 @@ namespace RadixCalculator
 			public static MixedRadixSystem Slashes()
 			{
 				Dictionary<BigInteger, string> symbolDict = new Dictionary<BigInteger, string>();
-				
+
 				symbolDict.Add(0, ".");
-				symbolDict.Add(1,@"\");
+				symbolDict.Add(1, @"\");
 				symbolDict.Add(2, "V");
 				symbolDict.Add(3, "Y");
 				symbolDict.Add(4, "X");
 				symbolDict.Add(5, "*");
-				
+
 				return new MixedRadixSystem(5, 10, symbolDict);
 			}
 

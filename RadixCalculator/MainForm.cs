@@ -1,20 +1,15 @@
 /*
  *
- * Developed by Adam Rakaska 
+ * Developed by Adam White 
  *  http://csharpcodewhisperer.blogspot.com
- *    http://arakaska.wix.com/intelligentsoftware
- *
- *
- * Made using SharpDevelop
- *
  * 
  */
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Drawing;
 using System.Numerics;
 using System.Windows.Forms;
-using System.Linq;
+using System.Collections.Generic;
 using RadixCalculator;
 
 namespace RadixCalculator
@@ -31,7 +26,6 @@ namespace RadixCalculator
 		{
 			InitializeComponent();
 			Initialize();
-			this.button8.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[8].Increment(); UpdateGUI(); });
 			this.button7.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[7].Increment(); UpdateGUI(); });
 			this.button6.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[6].Increment(); UpdateGUI(); });
 			this.button5.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[5].Increment(); UpdateGUI(); });
@@ -39,6 +33,10 @@ namespace RadixCalculator
 			this.button3.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[3].Increment(); UpdateGUI(); });
 			this.button2.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[2].Increment(); UpdateGUI(); });
 			this.button1.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[1].Increment(); UpdateGUI(); });
+			this.button0.Click += new EventHandler((o, e) => { currentNumeralSystem.Digits[0].Increment(); UpdateGUI(); });
+
+			tbIncrementAmmount.Text = "3218147";
+
 			UpdateGUI();
 		}
 
