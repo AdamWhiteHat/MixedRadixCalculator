@@ -1,8 +1,8 @@
 /*
  *
- * Developed by Adam Rakaska 
+ * Developed by Adam White 
  *  http://csharpcodewhisperer.blogspot.com
- *    http://arakaska.wix.com/intelligentsoftware
+ *    http://aWhite.wix.com/intelligentsoftware
  *
  *
  * Made using SharpDevelop
@@ -50,6 +50,7 @@ namespace RadixCalculator
 			this.timerAutoIncrement = new System.Windows.Forms.Timer(this.components);
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+			this.button0 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
@@ -57,7 +58,6 @@ namespace RadixCalculator
 			this.button5 = new System.Windows.Forms.Button();
 			this.button6 = new System.Windows.Forms.Button();
 			this.button7 = new System.Windows.Forms.Button();
-			this.button8 = new System.Windows.Forms.Button();
 			this.btnCustomAmmount = new System.Windows.Forms.Button();
 			this.tbIncrementAmmount = new System.Windows.Forms.TextBox();
 			this.btnIncrement5 = new System.Windows.Forms.Button();
@@ -79,11 +79,13 @@ namespace RadixCalculator
 			this.btnCreate = new System.Windows.Forms.Button();
 			this.btnLoad = new System.Windows.Forms.Button();
 			this.listNumberSystems = new System.Windows.Forms.ListBox();
+			this.errorProvider_CustomDigit = new System.Windows.Forms.ErrorProvider(this.components);
 			this.groupBox1.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.panelRadixUse.SuspendLayout();
 			this.panelRadixChoose.SuspendLayout();
 			this.panelCustom.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider_CustomDigit)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tbTabularFormat
@@ -172,6 +174,7 @@ namespace RadixCalculator
 			// 
 			this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.flowLayoutPanel1.Controls.Add(this.button0);
 			this.flowLayoutPanel1.Controls.Add(this.button1);
 			this.flowLayoutPanel1.Controls.Add(this.button2);
 			this.flowLayoutPanel1.Controls.Add(this.button3);
@@ -179,92 +182,91 @@ namespace RadixCalculator
 			this.flowLayoutPanel1.Controls.Add(this.button5);
 			this.flowLayoutPanel1.Controls.Add(this.button6);
 			this.flowLayoutPanel1.Controls.Add(this.button7);
-			this.flowLayoutPanel1.Controls.Add(this.button8);
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(8, 40);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
 			this.flowLayoutPanel1.Size = new System.Drawing.Size(605, 32);
 			this.flowLayoutPanel1.TabIndex = 9;
 			// 
+			// button0
+			// 
+			this.button0.AutoSize = true;
+			this.button0.Location = new System.Drawing.Point(561, 3);
+			this.button0.Name = "button0";
+			this.button0.Size = new System.Drawing.Size(41, 25);
+			this.button0.TabIndex = 8;
+			this.button0.Text = "n^0";
+			this.button0.UseVisualStyleBackColor = true;
+			// 
 			// button1
 			// 
 			this.button1.AutoSize = true;
-			this.button1.Location = new System.Drawing.Point(561, 3);
+			this.button1.Location = new System.Drawing.Point(514, 3);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(41, 25);
-			this.button1.TabIndex = 8;
+			this.button1.TabIndex = 9;
 			this.button1.Text = "n^1";
 			this.button1.UseVisualStyleBackColor = true;
 			// 
 			// button2
 			// 
 			this.button2.AutoSize = true;
-			this.button2.Location = new System.Drawing.Point(514, 3);
+			this.button2.Location = new System.Drawing.Point(467, 3);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(41, 25);
-			this.button2.TabIndex = 9;
+			this.button2.TabIndex = 10;
 			this.button2.Text = "n^2";
 			this.button2.UseVisualStyleBackColor = true;
 			// 
 			// button3
 			// 
 			this.button3.AutoSize = true;
-			this.button3.Location = new System.Drawing.Point(467, 3);
+			this.button3.Location = new System.Drawing.Point(420, 3);
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(41, 25);
-			this.button3.TabIndex = 10;
+			this.button3.TabIndex = 11;
 			this.button3.Text = "n^3";
 			this.button3.UseVisualStyleBackColor = true;
 			// 
 			// button4
 			// 
 			this.button4.AutoSize = true;
-			this.button4.Location = new System.Drawing.Point(420, 3);
+			this.button4.Location = new System.Drawing.Point(373, 3);
 			this.button4.Name = "button4";
 			this.button4.Size = new System.Drawing.Size(41, 25);
-			this.button4.TabIndex = 11;
+			this.button4.TabIndex = 12;
 			this.button4.Text = "n^4";
 			this.button4.UseVisualStyleBackColor = true;
 			// 
 			// button5
 			// 
 			this.button5.AutoSize = true;
-			this.button5.Location = new System.Drawing.Point(373, 3);
+			this.button5.Location = new System.Drawing.Point(326, 3);
 			this.button5.Name = "button5";
 			this.button5.Size = new System.Drawing.Size(41, 25);
-			this.button5.TabIndex = 12;
+			this.button5.TabIndex = 13;
 			this.button5.Text = "n^5";
 			this.button5.UseVisualStyleBackColor = true;
 			// 
 			// button6
 			// 
 			this.button6.AutoSize = true;
-			this.button6.Location = new System.Drawing.Point(326, 3);
+			this.button6.Location = new System.Drawing.Point(279, 3);
 			this.button6.Name = "button6";
 			this.button6.Size = new System.Drawing.Size(41, 25);
-			this.button6.TabIndex = 13;
+			this.button6.TabIndex = 14;
 			this.button6.Text = "n^6";
 			this.button6.UseVisualStyleBackColor = true;
 			// 
 			// button7
 			// 
 			this.button7.AutoSize = true;
-			this.button7.Location = new System.Drawing.Point(279, 3);
+			this.button7.Location = new System.Drawing.Point(232, 3);
 			this.button7.Name = "button7";
 			this.button7.Size = new System.Drawing.Size(41, 25);
-			this.button7.TabIndex = 14;
+			this.button7.TabIndex = 16;
 			this.button7.Text = "n^7";
 			this.button7.UseVisualStyleBackColor = true;
-			// 
-			// button8
-			// 
-			this.button8.AutoSize = true;
-			this.button8.Location = new System.Drawing.Point(232, 3);
-			this.button8.Name = "button8";
-			this.button8.Size = new System.Drawing.Size(41, 25);
-			this.button8.TabIndex = 16;
-			this.button8.Text = "n^8";
-			this.button8.UseVisualStyleBackColor = true;
 			// 
 			// btnCustomAmmount
 			// 
@@ -441,8 +443,9 @@ namespace RadixCalculator
 			this.tbCustomDigit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.tbCustomDigit.Location = new System.Drawing.Point(6, 26);
 			this.tbCustomDigit.Name = "tbCustomDigit";
-			this.tbCustomDigit.Size = new System.Drawing.Size(362, 20);
+			this.tbCustomDigit.Size = new System.Drawing.Size(347, 20);
 			this.tbCustomDigit.TabIndex = 4;
+			this.tbCustomDigit.TextChanged += new System.EventHandler(this.tbCustomDigit_TextChanged);
 			this.tbCustomDigit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbCustomDigit_KeyDown);
 			// 
 			// btnCustomSave
@@ -503,6 +506,11 @@ namespace RadixCalculator
 			this.listNumberSystems.Size = new System.Drawing.Size(207, 147);
 			this.listNumberSystems.TabIndex = 0;
 			// 
+			// errorProvider_CustomDigit
+			// 
+			this.errorProvider_CustomDigit.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+			this.errorProvider_CustomDigit.ContainerControl = this;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -523,6 +531,7 @@ namespace RadixCalculator
 			this.panelRadixChoose.ResumeLayout(false);
 			this.panelCustom.ResumeLayout(false);
 			this.panelCustom.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider_CustomDigit)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -555,6 +564,7 @@ namespace RadixCalculator
         private System.Windows.Forms.TextBox tbDecimalValue;
         private System.Windows.Forms.TextBox tbNumeralFormat;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button button0;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
@@ -562,6 +572,6 @@ namespace RadixCalculator
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-    }
+		private System.Windows.Forms.ErrorProvider errorProvider_CustomDigit;
+	}
 }
